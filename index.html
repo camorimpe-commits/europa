@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>✈ Eurotrip 2026</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#1a3a6b">
+<meta name="apple-mobile-web-app-title" content="Eurotrip 2026">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3a6b; --navy-light: #2a5298; --gold: #c8a84b; --gold-light: #f0d080;
+    --cream: #faf8f3; --warm-white: #ffffff; --gray-100: #f5f4f0; --gray-200: #e8e6e0;
+    --gray-400: #9a9690; --gray-700: #4a4845; --gray-900: #1e1c1a; --radius: 14px;
+    --radius-sm: 8px; --shadow-sm: 0 1px 6px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-900); min-height: 100vh; padding-bottom: 90px; }
+  .app-header { background: var(--navy); color: white; padding: 20px 18px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(26,58,107,0.25); }
+  .app-header h1 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.02em; color: var(--gold-light); }
+  .app-header p { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 3px; letter-spacing: 0.03em; }
+  .summary-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--navy-light); border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .sum-item { padding: 10px 6px; text-align: center; border-right: 1px solid rgba(255,255,255,0.12); }
+  .sum-item:last-child { border-right: none; }
+  .sum-num { font-size: 20px; font-weight: 500; color: var(--gold-light); font-family: 'Playfair Display', serif; }
+  .sum-lbl { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 1px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .city-nav { display: flex; overflow-x: auto; background: white; border-bottom: 2px solid var(--gray-200); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .city-nav::-webkit-scrollbar { display: none; }
+  .city-tab { display: flex; flex-direction: column; align-items: center; padding: 10px 14px 8px; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; gap: 2px; }
+  .city-tab.active { border-bottom-color: var(--navy); background: white; }
+  .ct-flag { font-size: 18px; } .ct-name { font-size: 11px; font-weight: 500; color: var(--gray-700); } .ct-name.active-text { color: var(--navy); } .ct-dates { font-size: 9px; color: var(--gray-400); }
+  .tab-bar { display: flex; gap: 6px; padding: 12px 14px 0; overflow-x: auto; scrollbar-width: none; background: var(--cream); }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-pill { padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1.5px solid var(--gray-200); background: white; color: var(--gray-700); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  .tab-pill.active { background: var(--navy); border-color: var(--navy); color: white; }
+  .content { padding: 14px; }
+  .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 16px; margin-bottom: 12px; border: 1px solid var(--gray-200); }
+  .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 12px; }
+  .day-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+  .day-row:last-child { border-bottom: none; }
+  .day-badge { background: var(--navy); color: white; border-radius: 8px; padding: 4px 8px; font-size: 10px; font-weight: 500; white-space: nowrap; flex-shrink: 0; margin-top: 1px; min-width: 56px; text-align:center; }
+  .day-input, .notes-input { font-family: 'DM Sans', sans-serif; }
+  .day-input { flex: 1; border: none; background: transparent; font-size: 13px; color: var(--gray-900); line-height: 1.5; outline: none; resize: none; min-height: 54px; width: 100%; padding: 2px 0; }
+  .notes-input { width: 100%; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; color: var(--gray-900); min-height: 110px; background: var(--gray-100); resize: none; outline: none; }
+  .place-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); cursor: pointer; text-decoration: none; color: inherit; }
+  .place-item:last-child { border-bottom: none; }
+  .place-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .pi-tourist { background: #e8eef8; } .pi-restaurant { background: #fff3e0; } .pi-airbnb { background:#eef7ef; }
+  .place-info { flex: 1; min-width: 0; }
+  .place-name { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .place-meta { font-size: 11px; color: var(--gray-400); line-height: 1.5; margin-top: 2px; }
+  .place-link { font-size: 11px; color: var(--navy); margin-top: 3px; font-weight: 500; }
+  .maps-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: var(--navy); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; text-decoration: none; margin-top: 6px; }
+  .mini-note { background: #f7f7fb; border-left: 4px solid var(--gold); padding: 12px; border-radius: 10px; font-size: 12px; line-height: 1.5; color: var(--gray-700); margin-top: 10px; }
+  .transport-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: var(--radius); padding: 16px; color: white; margin-bottom: 12px; }
+  .transport-box h3 { font-size: 15px; margin-bottom: 6px; }
+  .transport-box p { font-size: 12px; color: rgba(255,255,255,0.82); line-height: 1.6; }
+  .fab { position: fixed; bottom: 20px; right: 18px; width: 46px; height: 46px; background: var(--gold); color: var(--navy); border: none; border-radius: 50%; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(200,168,75,0.4); cursor: pointer; z-index: 200; }
+</style>
+</head>
+<body>
+<div class="app-header">
+  <h1>✈ Eurotrip 2026</h1>
+  <p>Cristiano & Leliane · roteiro base para abril de 2026</p>
+</div>
+
+<div class="summary-strip">
+  <div class="sum-item"><div class="sum-num">4</div><div class="sum-lbl">Países</div></div>
+  <div class="sum-item"><div class="sum-num">4</div><div class="sum-lbl">Cidades</div></div>
+  <div class="sum-item"><div class="sum-num">13</div><div class="sum-lbl">Dias</div></div>
+  <div class="sum-item"><div class="sum-num">3</div><div class="sum-lbl">Trechos</div></div>
+</div>
+
+<div class="city-nav" id="cityNav"></div>
+<div class="tab-bar" id="tabBar">
+  <div class="tab-pill active" onclick="setTab('roteiro',this)">📅 Roteiro</div>
+  <div class="tab-pill" onclick="setTab('turistico',this)">🏛 Turístico</div>
+  <div class="tab-pill" onclick="setTab('restaurantes',this)">🍽 Restaurantes</div>
+  <div class="tab-pill" onclick="setTab('apoio',this)">🏠 Apoio</div>
+</div>
+<div class="content" id="mainContent"></div>
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const cities = [
+  {
+    id:'lisboa', name:'Lisboa', flag:'🇵🇹', country:'Portugal', dates:'4 dias', address:'Hospedagem não informada',
+    lat:38.7223, lng:-9.1393, mapQ:'Lisboa Portugal pontos turísticos',
+    transport:'Roteiro por zonas para reduzir deslocamentos: Baixa/Chiado, Alfama/Castelo, Belém e um último bloco mais leve.',
+    airportTransfer:'Como o endereço em Lisboa não foi informado, deixei o foco na ordem ideal das áreas. Quando você mandar a hospedagem, incluo o melhor trajeto de metrô/trem saindo do aeroporto.',
+    trainTips:[
+      'Baixa/Chiado e Alfama rendem melhor combinando caminhada + bonde/metro.',
+      'Para Belém, o trem/tram ao longo do Tejo costuma ser a forma mais prática a partir do centro.'
+    ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Baixa + Chiado', desc:'Praça do Comércio, Rua Augusta, Elevador de Santa Justa e miradouro.', query:'Praça do Comércio Lisboa to Elevador de Santa Justa to Chiado Lisboa walking'},
+      {title:'Mapa dia 2 — Alfama + Castelo', desc:'Sé, Alfama, Castelo de São Jorge e miradouros.', query:'Sé de Lisboa to Castelo de São Jorge to Miradouro de Santa Luzia walking'},
+      {title:'Mapa dia 3 — Belém', desc:'Jerónimos, Padrão dos Descobrimentos e Torre de Belém.', query:'Mosteiro dos Jerónimos to Padrão dos Descobrimentos to Torre de Belém walking'}
+    ],
+    days:['Dia 1','Dia 2','Dia 3','Dia 4'],
+    dayDefaults:[
+      'MANHÃ: Praça do Comércio + Rua Augusta. TARDE: Chiado e Elevador de Santa Justa. NOITE: miradouro e jantar no centro.',
+      'MANHÃ: Sé + Alfama. TARDE: Castelo de São Jorge e miradouros. NOITE: jantar com fado em Alfama.',
+      'MANHÃ: Mosteiro dos Jerónimos. TARDE: Padrão dos Descobrimentos + Torre de Belém + pastéis. NOITE: retorno sem pressa.',
+      'MANHÃ: Parque das Nações ou LX Factory. TARDE: compras leves/descanso e mala. NOITE: deslocamento para o voo seguinte.'
+    ],
+    tourists:[
+      {name:'Praça do Comércio', icon:'🏛', meta:'ótima base para o 1º dia'},
+      {name:'Castelo de São Jorge', icon:'🏰', meta:'combina com Alfama e miradouros'},
+      {name:'Mosteiro dos Jerónimos', icon:'⛪', meta:'ideal no dia de Belém'},
+      {name:'Torre de Belém', icon:'🗼', meta:'fecha bem o circuito ribeirinho'},
+      {name:'LX Factory', icon:'🛍️', meta:'boa opção moderna e gastronômica'}
+    ],
+    restaurants:[
+      {name:'Time Out Market', icon:'🍽️', meta:'boa opção prática no centro'},
+      {name:'Cervejaria Ramiro', icon:'🦐', meta:'clássico para frutos do mar'},
+      {name:'A Baiuca', icon:'🎶', meta:'jantar com ambiente tradicional em Alfama'}
+    ],
+    notesDefault:'Reservar com antecedência Jerónimos/Castelo se quiser evitar filas. Quando você me passar o endereço em Lisboa, eu ajusto o traslado do aeroporto e os pontos mais próximos.'
+  },
+  {
+    id:'london', name:'Londres', flag:'🇬🇧', country:'Reino Unido', dates:'2 dias',
+    address:'36a Strutton Ground Floor 1 flat 1, SW1P 2HR',
+    lat:51.4975, lng:-0.1324, mapQ:'36a Strutton Ground SW1P 2HR London',
+    transport:'Base excelente em Westminster. A melhor lógica é fazer Westminster + South Kensington + Notting Hill em um dia, e Camden + Piccadilly/Soho no outro.',
+    airportTransfer:'HEATHROW → Airbnb: melhor opção ferroviária é Elizabeth line até Paddington e, de lá, Circle ou District line até St James’s Park; depois, caminhada curta até Strutton Ground. Alternativa mais simples, porém mais lenta: Piccadilly line até South Kensington/Green Park com troca. Para entrar e sair do transporte, o contactless do cartão/celular funciona muito bem em Londres.',
+    trainTips:[
+      'Airbnb → St James’s Park / Westminster: dá para fazer a pé.',
+      'Westminster/St James’s Park → South Kensington (Museu de História Natural): District ou Circle line.',
+      'St James’s Park → Notting Hill Gate: Circle line direta costuma ser a opção mais confortável.',
+      'Westminster → Camden Town: vá de Jubilee/Victoria/Northern combinando a rota do momento no app da TfL; Tube rende mais que ônibus aqui.',
+      'Westminster → Piccadilly Circus: Jubilee até Green Park e caminhada curta, ou District/Circle + conexão conforme o fluxo do dia.'
+    ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Westminster + South Kensington + Notting Hill', desc:'Airbnb, Westminster Abbey, Big Ben, St James’s Park, Buckingham Palace, Natural History Museum e Notting Hill.', query:'36a Strutton Ground London to Westminster Abbey to Big Ben to St James\'s Park to Buckingham Palace to Natural History Museum London to Notting Hill Gate'},
+      {title:'Mapa dia 2 — Camden + West End', desc:'Camden Market, Regent Street, Piccadilly Circus, Soho e Covent Garden.', query:'36a Strutton Ground London to Camden Market to Regent Street London to Piccadilly Circus to Soho London to Covent Garden'}
+    ],
+    days:['Dia 1','Dia 2'],
+    dayDefaults:[
+      'MANHÃ: Westminster Abbey, Big Ben, Parliament e St James’s Park saindo a pé do Airbnb. TARDE: Buckingham Palace e depois Tube para South Kensington, com visita ao Museu de História Natural. NOITE: Notting Hill/Portobello para jantar ou pub.',
+      'MANHÃ: Camden Town e Camden Market cedo. TARDE: Regent Street, Piccadilly Circus e Soho/Covent Garden. NOITE: retorno para organizar a saída do dia seguinte.'
+    ],
+    tourists:[
+      {name:'Westminster Abbey', icon:'⛪', meta:'muito perto da hospedagem'},
+      {name:'Natural History Museum', icon:'🦖', meta:'South Kensington, ótimo no meio do roteiro'},
+      {name:'Notting Hill', icon:'🏘️', meta:'charme, lojinhas e Portobello Road'},
+      {name:'Camden Town & Camden Market', icon:'🎸', meta:'vibe alternativa e street food'},
+      {name:'Piccadilly Circus', icon:'🌃', meta:'combina com Soho e West End'}
+    ],
+    restaurants:[
+      {name:'Strutton Ground Market', icon:'🥙', meta:'prático e perto do Airbnb'},
+      {name:'Dishoom Carnaby', icon:'🍛', meta:'boa pedida após Piccadilly/Soho'},
+      {name:'The Churchill Arms', icon:'🍺', meta:'pub clássico no eixo de Notting Hill/Kensington'}
+    ],
+    notesDefault:'O Museu de História Natural abre diariamente em geral das 10h às 17h50; Camden rende melhor cedo e Piccadilly/Soho encaixam bem no fim da tarde/noite.'
+  },
+  {
+    id:'amsterdam', name:'Amsterdã', flag:'🇳🇱', country:'Países Baixos', dates:'2 dias',
+    address:'Jan Gijzenkade 156, Haarlem, Noord-Holland 2022 DP',
+    lat:52.3968, lng:4.6394, mapQ:'Jan Gijzenkade 156 Haarlem',
+    transport:'A hospedagem fica em Haarlem. Faz sentido usar Haarlem como base: 1 dia para tulipas/Keukenhof e 1 dia para Amsterdam. Para Amsterdam, a perna principal é de trem Haarlem ↔ Amsterdam Centraal; para Keukenhof, saiam de Haarlem Station.',
+    airportTransfer:'SCHIPHOL → Haarlem: use trem/ônibus público a partir de Schiphol Plaza; o aeroporto informa opções frequentes de trem e ônibus para Haarlem. Se houver impacto das obras ferroviárias de abril, o 9292 indica rotas alternativas. Chegando em Haarlem Station, a última perna até Jan Gijzenkade 156 pode ser feita de ônibus local ou táxi curto.',
+    trainTips:[
+      'Haarlem ↔ Amsterdam Centraal de trem é o deslocamento-base do roteiro.',
+      'Haarlem Station → Keukenhof: KeukenhofBuzz 850, direto e sem paradas, é a melhor opção na temporada.',
+      'Alternativa para Keukenhof: ônibus regular 50, útil se o 850 não encaixar no horário.',
+      'Para a volta tarde/noite de Amsterdam, vale sempre conferir o 9292 no dia por causa de eventuais ajustes operacionais.'
+    ],
+    mapRoutes:[
+      {title:'Mapa tulipas — Haarlem Station → Keukenhof', desc:'Rota para o dia das flores com saída de Haarlem.', query:'Haarlem Station to Keukenhof Lisse transit'},
+      {title:'Mapa Amsterdam clássico', desc:'Amsterdam Centraal, Rijksmuseum, Van Gogh, 9 Straatjes e canais.', query:'Amsterdam Centraal to Rijksmuseum to Van Gogh Museum to De 9 Straatjes walking'},
+      {title:'Mapa noite / bares em Amsterdam', desc:'Canais + bares sugeridos.', query:'Amsterdam Centraal to Pulitzer\'s Bar to Hiding in Plain Sight to Hannekes Boom'}
+    ],
+    days:['Dia 1','Dia 2'],
+    dayDefaults:[
+      'MANHÃ: sair cedo de Haarlem Station para Keukenhof/Lisse. TARDE: continuar no parque e voltar para Haarlem sem correria. NOITE: Grote Markt ou, se sobrar energia, trem para Amsterdam e drinks à beira dos canais.',
+      'MANHÃ: trem para Amsterdam Centraal e seguir para Rijksmuseum ou Van Gogh. TARDE: Jordaan/9 Straatjes e caminhada pelos canais. NOITE: bar em Amsterdam e retorno de trem para Haarlem.'
+    ],
+    tourists:[
+      {name:'Keukenhof (Lisse)', icon:'🌷', meta:'prioridade da viagem na temporada de tulipas'},
+      {name:'Grote Markt (Haarlem)', icon:'🏘️', meta:'centro histórico charmoso e perto da base'},
+      {name:'Rijksmuseum', icon:'🏛️', meta:'principal clássico em Amsterdam'},
+      {name:'Van Gogh Museum', icon:'🎨', meta:'combina com Museumplein'},
+      {name:'Canais de Amsterdam', icon:'🚤', meta:'ideal no fim da tarde'}
+    ],
+    restaurants:[
+      {name:'Hiding in Plain Sight', icon:'🍸', meta:'coquetelaria forte em Amsterdam'},
+      {name:'Pulitzer\'s Bar', icon:'🥂', meta:'opção elegante perto dos canais'},
+      {name:'Hannekes Boom', icon:'🍺', meta:'descontraído, bom para fim de tarde'},
+      {name:'Jopenkerk (Haarlem)', icon:'🍻', meta:'excelente pedida na volta para a base'}
+    ],
+    notesDefault:'Keukenhof funciona na temporada de primavera. Em 2026, há obras ferroviárias em parte da região de Amsterdam/Schiphol em datas de abril, então vale conferir 9292 e NS na véspera e no dia.'
+  },
+  {
+    id:'paris', name:'Paris', flag:'🇫🇷', country:'França', dates:'5 dias',
+    address:'13 Rue des Jeuneurs, Paris 75002',
+    lat:48.8693, lng:2.3434, mapQ:'13 Rue des Jeuneurs 75002 Paris',
+    transport:'O Airbnb está muito bem posicionado no 2º arrondissement. A lógica ideal é: 1 dia leve no entorno, 1 dia Disney de RER, 22/04 Louvre + eixo Tuileries/Concorde, 1 dia Île de la Cité/Marais e 1 dia Torre Eiffel ou Montmartre.',
+    airportTransfer:'CDG → Airbnb: melhor opção de trem é o RER B até Châtelet–Les Halles; dali, vocês podem seguir a pé por cerca de 15–20 min ou completar com metrô/táxi curto até a Rue des Jeuneurs. Para o trecho aeroporto ⇄ Paris, a Paris Aéroport considera o RER B a ligação mais simples e direta. Atenção: o RER B tem obras noturnas em vários dias de semana em 2026, então vale checar a operação se o voo pousar muito tarde.',
+    trainTips:[
+      'Rue des Jeuneurs → Sentier (linha 3) é a referência mais próxima para vários deslocamentos.',
+      'Airbnb → Disneyland Paris: ir até Châtelet–Les Halles e pegar o RER A para Marne-la-Vallée/Chessy.',
+      'Airbnb → Louvre: dá para fazer a pé em cerca de 20 minutos; de metrô, o alvo é Palais Royal–Musée du Louvre.',
+      'Airbnb → Torre Eiffel: metrô costuma render melhor que ônibus; uma troca simples normalmente resolve.',
+      'Airbnb → Montmartre: metrô até a área de Anvers/Abbesses costuma ser a melhor lógica.'
+    ],
+    mapRoutes:[
+      {title:'Mapa chegada — CDG até o Airbnb', desc:'RER B até Châtelet–Les Halles e última perna até a Rue des Jeuneurs.', query:'Charles de Gaulle Airport to 13 Rue des Jeuneurs 75002 Paris transit'},
+      {title:'Mapa Disney', desc:'Base no 2º arrondissement até Marne-la-Vallée/Chessy.', query:'13 Rue des Jeuneurs 75002 Paris to Disneyland Paris transit'},
+      {title:'Mapa 22/04 — Louvre + Tuileries + Concorde', desc:'Dia já travado pelo ingresso do Louvre.', query:'13 Rue des Jeuneurs 75002 Paris to Louvre Museum to Jardin des Tuileries to Place de la Concorde walking'},
+      {title:'Mapa Île de la Cité + Marais', desc:'Notre-Dame, Conciergerie e caminhada até o Marais.', query:'13 Rue des Jeuneurs 75002 Paris to Notre Dame Paris to Conciergerie to Le Marais walking'}
+    ],
+    days:['Dia 1','Dia 2','Dia 3','Dia 4','Dia 5'],
+    dayDefaults:[
+      'MANHÃ/TARDE: chegada e check-in. FIM DE TARDE: Galerie Vivienne, Palais-Royal e Opéra Garnier sem grandes deslocamentos. NOITE: jantar perto do Airbnb.',
+      'MANHÃ: sair cedo para Disneyland Paris via RER A. TARDE: parque. NOITE: retorno para o 2º arrondissement.',
+      '22/04 — MANHÃ: Louvre com ingresso já comprado. TARDE: Tuileries, Place de la Concorde e, se quiserem, Champs-Élysées. NOITE: jantar na região central.',
+      'MANHÃ: Notre-Dame e Île de la Cité. TARDE: Conciergerie/Sainte-Chapelle e caminhada até o Marais. NOITE: jantar no Marais ou retorno ao 2º.',
+      'MANHÃ: Torre Eiffel e Trocadéro OU Montmartre/Sacré-Cœur. TARDE: façam a segunda opção, se houver energia. NOITE: fechar a viagem com jantar especial.'
+    ],
+    tourists:[
+      {name:'Galerie Vivienne', icon:'✨', meta:'bem perto da hospedagem'},
+      {name:'Disneyland Paris', icon:'🏰', meta:'separar um dia inteiro'},
+      {name:'Museu do Louvre', icon:'🖼️', meta:'visita fixada para 22/04'},
+      {name:'Notre-Dame', icon:'⛪', meta:'combina com Île de la Cité'},
+      {name:'Torre Eiffel', icon:'🗼', meta:'melhor no fim da tarde/noite'}
+    ],
+    restaurants:[
+      {name:'Bouillon Chartier', icon:'🍲', meta:'clássico e com boa relação custo-benefício'},
+      {name:'Bistrot Vivienne', icon:'🍷', meta:'ótimo na área do Airbnb'},
+      {name:'Kodawari Ramen', icon:'🍜', meta:'boa opção no eixo central'}
+    ],
+    notesDefault:'O Louvre abre na quarta-feira até mais tarde e o dia 22/04 está bem encaixado. Para Disney, saiam cedo e confiram a operação do RER A na véspera.'
+  }
+];
+
+const storage = {
+  get(key){ try{ return JSON.parse(localStorage.getItem(key)); }catch(e){ return null; } },
+  set(key,val){ try{ localStorage.setItem(key,JSON.stringify(val)); }catch(e){} }
+};
+
+const dayPlans = {};
+const notes = {};
+cities.forEach(c => {
+  const savedDays = storage.get('days_'+c.id);
+  dayPlans[c.id] = savedDays || [...c.dayDefaults];
+  notes[c.id] = storage.get('notes_'+c.id) || c.notesDefault || '';
+});
+
+let activeCity = 0;
+let activeTab = 'roteiro';
+
+function mapsUrl(query, city){
+  return `https://www.google.com/maps/search/${encodeURIComponent(query + ' ' + city.name + ' ' + city.country)}`;
+}
+function cityMapsUrl(city){
+  return `https://www.google.com/maps/search/${encodeURIComponent(city.mapQ)}`;
+}
+function renderNav(){
+  const nav = document.getElementById('cityNav');
+  nav.innerHTML = cities.map((c,i) => `
+    <div class="city-tab ${i===activeCity?'active':''}" onclick="selectCity(${i})">
+      <span class="ct-flag">${c.flag}</span>
+      <span class="ct-name ${i===activeCity?'active-text':''}">${c.name}</span>
+      <span class="ct-dates">${c.dates}</span>
+    </div>
+  `).join('');
+}
+function selectCity(i){ activeCity = i; renderNav(); renderContent(); window.scrollTo({top: document.querySelector('.city-nav').offsetTop - 60, behavior:'smooth'}); }
+function setTab(tab, el){ activeTab = tab; document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active')); el.classList.add('active'); renderContent(); }
+function saveDayPlan(cityId, idx, val){ dayPlans[cityId][idx] = val; storage.set('days_'+cityId, dayPlans[cityId]); }
+function saveNote(cityId, val){ notes[cityId] = val; storage.set('notes_'+cityId, val); }
+
+function renderContent(){
+  const city = cities[activeCity];
+  const el = document.getElementById('mainContent');
+  let html = '';
+
+  if(activeTab === 'roteiro'){
+    html += `<div class="transport-box"><h3>📍 ${city.name}</h3><p>${city.transport}</p></div>`;
+    if(city.airportTransfer){
+      html += `<div class="card"><div class="card-title">🚆 Aeroporto → hospedagem</div><div class="mini-note">${city.airportTransfer}</div></div>`;
+    }
+    if(city.trainTips && city.trainTips.length){
+      html += `<div class="card"><div class="card-title">🚇 Trem / metrô mais úteis</div>${city.trainTips.map(t => `<div class="day-row"><span class="day-badge">TIP</span><div class="place-info"><div class="place-meta" style="font-size:13px;color:var(--gray-900)">${t}</div></div></div>`).join('')}</div>`;
+    }
+    html += `<div class="card">
+      <div class="card-title">📆 Planejamento diário</div>
+      ${city.days.map((day,i) => `
+        <div class="day-row">
+          <span class="day-badge">${day}</span>
+          <textarea class="day-input" rows="3" onchange="saveDayPlan('${city.id}',${i},this.value)">${(dayPlans[city.id][i]||'').replace(/</g,'&lt;')}</textarea>
+        </div>`).join('')}
+    </div>`;
+    html += `<div class="card">
+      <div class="card-title">📝 Notas da cidade</div>
+      <textarea class="notes-input" onchange="saveNote('${city.id}',this.value)">${notes[city.id].replace(/</g,'&lt;')}</textarea>
+    </div>`;
+    html += `<a class="maps-btn" href="${cityMapsUrl(city)}" target="_blank">🗺 Abrir base da cidade no Google Maps</a>`;
+  }
+
+  if(activeTab === 'turistico'){
+    html += `<div class="card"><div class="card-title">🏛 Pontos turísticos sugeridos — ${city.name}</div>
+      ${city.tourists.map(t => `
+        <a class="place-item" href="${mapsUrl(t.name, city)}" target="_blank">
+          <div class="place-icon pi-tourist">${t.icon}</div>
+          <div class="place-info"><div class="place-name">${t.name}</div><div class="place-meta">${t.meta}</div><div class="place-link">Ver no Google Maps ↗</div></div>
+        </a>`).join('')}
+      <div class="mini-note">Os pontos foram organizados por blocos de deslocamento para evitar idas e vindas desnecessárias.</div>
+    </div>`;
+  }
+
+  if(activeTab === 'restaurantes'){
+    html += `<div class="card"><div class="card-title">🍽 Restaurantes / bares / paradas práticas — ${city.name}</div>
+      ${city.restaurants.map(r => `
+        <a class="place-item" href="${mapsUrl(r.name, city)}" target="_blank">
+          <div class="place-icon pi-restaurant">${r.icon}</div>
+          <div class="place-info"><div class="place-name">${r.name}</div><div class="place-meta">${r.meta}</div><div class="place-link">Ver no Google Maps ↗</div></div>
+        </a>`).join('')}
+    </div>`;
+  }
+
+  if(activeTab === 'apoio'){
+    html += `<div class="card"><div class="card-title">🏠 Base da viagem — ${city.name}</div>
+      <div class="place-item" style="cursor:default">
+        <div class="place-icon pi-airbnb">🏠</div>
+        <div class="place-info">
+          <div class="place-name">${city.address}</div>
+          <div class="place-meta">Endereço/base usado para organizar o roteiro e os mapas.</div>
+        </div>
+      </div>
+      <a class="maps-btn" href="${cityMapsUrl(city)}" target="_blank">📍 Ver endereço/base no Google Maps</a>
+    </div>`;
+    if(city.mapRoutes && city.mapRoutes.length){
+      html += `<div class="card"><div class="card-title">🗺 Mapas prontos entre os pontos</div>
+      ${city.mapRoutes.map(m => `
+        <a class="place-item" href="https://www.google.com/maps/search/${encodeURIComponent(m.query)}" target="_blank">
+          <div class="place-icon pi-tourist">🗺️</div>
+          <div class="place-info"><div class="place-name">${m.title}</div><div class="place-meta">${m.desc}</div><div class="place-link">Abrir rota/mapa ↗</div></div>
+        </a>`).join('')}
+      <div class="mini-note">Esses links servem para vocês visualizarem os pontos em conjunto no mapa e recalcularem a ordem conforme clima, fila e energia do dia.</div></div>`;
+    }
+  }
+
+  el.innerHTML = html;
+}
+renderNav();
+renderContent();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch((error) => {
+      console.error("Falha ao registrar service worker:", error);
+    });
+  });
+}
+</script>
+
+</body>
+</html>

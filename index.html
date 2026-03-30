@@ -88,6 +88,38 @@
 <script>
 const cities = [
   {
+  id:'porto', name:'Porto', flag:'🇵🇹', country:'Portugal', dates:'2 dias', address:'Hospedagem não informada',
+  lat:41.1496, lng:-8.6109, mapQ:'Porto Portugal pontos turísticos Ribeira Douro',
+  transport:'Roteiro concentrado no centro histórico e margem do Douro para fazer quase tudo a pé, reduzindo deslocamentos no primeiro dia e antes da saída para Lisboa.',
+  airportTransfer:'Como o endereço da hospedagem em Porto não foi informado, deixei o foco no centro histórico. Quando você mandar o endereço, eu incluo o melhor trajeto saindo do aeroporto.',
+  trainTips:[
+    'O centro histórico, Ribeira, Sé e Ponte Dom Luís I funcionam muito bem a pé.',
+    'Se quiser subir ou descer com menos esforço entre as áreas altas e baixas, vale combinar caminhada com metrô/funicular/bonde conforme o horário.'
+  ],
+  mapRoutes:[
+    {title:'Mapa dia 1 — Centro histórico + Ribeira', desc:'Sé do Porto, Estação São Bento, Rua das Flores, Ribeira e ponte ao entardecer.', query:'Sé do Porto to Estação São Bento to Rua das Flores Porto to Ribeira do Porto walking'},
+    {title:'Mapa dia 2 — Clérigos + despedida da cidade', desc:'Torre dos Clérigos, Livraria Lello, Avenida dos Aliados e saída para Lisboa.', query:'Torre dos Clérigos to Livraria Lello to Avenida dos Aliados Porto walking'}
+  ],
+  days:['Dia 1','Dia 2'],
+  dayDefaults:[
+    'MANHÃ/TARDE: chegada em Porto, check-in e passeio leve pelo centro histórico. Fim da tarde na Ribeira, Ponte Dom Luís I e orla do Douro. NOITE: jantar na região central.',
+    'MANHÃ: Torre dos Clérigos, Livraria Lello (se desejarem) e Avenida dos Aliados. TARDE: almoço sem pressa e deslocamento para Lisboa. NOITE: chegada e check-in em Lisboa.'
+  ],
+  tourists:[
+    {name:'Ribeira do Porto', icon:'🌉', meta:'melhor para o fim do dia e fotos no Douro'},
+    {name:'Ponte Dom Luís I', icon:'🌁', meta:'ótima vista da cidade e do rio'},
+    {name:'Sé do Porto', icon:'⛪', meta:'combina com o início do circuito histórico'},
+    {name:'Torre dos Clérigos', icon:'🏛️', meta:'encaixa bem na manhã do dia 10/04'},
+    {name:'Avenida dos Aliados', icon:'🏙️', meta:'boa área para fechar o passeio central'}
+  ],
+  restaurants:[
+    {name:'Brasão', icon:'🥪', meta:'boa opção para provar francesinha'},
+    {name:'Abadia do Porto', icon:'🐟', meta:'tradicional e central'},
+    {name:'The Door', icon:'🍽️', meta:'opção elegante para o primeiro jantar'}
+  ],
+  notesDefault:'Como a hospedagem em Porto ainda não foi informada, o roteiro está centrado nas áreas mais práticas para uma primeira passagem pela cidade. Quando você me enviar o endereço, eu ajusto o traslado do aeroporto e os pontos mais próximos.'
+},
+  {
     id:'lisboa', name:'Lisboa', flag:'🇵🇹', country:'Portugal', dates:'4 dias', address:'Hospedagem não informada',
     lat:38.7223, lng:-9.1393, mapQ:'Lisboa Portugal pontos turísticos',
     transport:'Roteiro por zonas para reduzir deslocamentos: Baixa/Chiado, Alfama/Castelo, Belém e um último bloco mais leve.',
@@ -235,7 +267,28 @@ const cities = [
       {name:'Kodawari Ramen', icon:'🍜', meta:'boa opção no eixo central'}
     ],
     notesDefault:'O Louvre abre na quarta-feira até mais tarde e o dia 22/04 está bem encaixado. Para Disney, saiam cedo e confiram a operação do RER A na véspera.'
-  }
+  },
+  {
+  id:'porto-final', name:'Porto Final', flag:'🇵🇹', country:'Portugal', dates:'25–26 abr', address:'Aeroporto do Porto',
+  lat:41.1496, lng:-8.6109, mapQ:'Porto Airport Portugal',
+  transport:'Trecho totalmente operacional dentro do aeroporto. Como a chegada será à noite e o voo para o Brasil sai às 10h da manhã seguinte, a melhor estratégia é permanecer no aeroporto e evitar qualquer deslocamento externo.',
+  airportTransfer:'Não será necessário traslado. A chegada em Porto no dia 25/04 será seguida de permanência no próprio aeroporto até o embarque internacional na manhã de 26/04.',
+  trainTips:[
+    'Não há necessidade de trem, metrô ou táxi neste trecho final.',
+    'A prioridade é localizar com antecedência o terminal, check-in e opções de café/descanso.'
+  ],
+  mapRoutes:[
+    {title:'Mapa — Aeroporto do Porto', desc:'Visualização do aeroporto.', query:'Porto Airport Portugal'}
+  ],
+  days:['Dia 1','Dia 2'],
+  dayDefaults:[
+    'NOITE: chegada em Porto por volta das 22h e permanência no aeroporto para descanso e organização da viagem.',
+    'MANHÃ: check-in e embarque para o Brasil às 10h.'
+  ],
+  tourists:[],
+  restaurants:[],
+  notesDefault:'Sem passeio externo. Trecho final apenas para descanso no aeroporto e embarque no dia seguinte.'
+},
 ];
 
 const storage = {

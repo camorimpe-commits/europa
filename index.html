@@ -196,42 +196,50 @@ const cities = [
   notesDefault:'No Dia 1, quase todo o roteiro pode ser feito a pé até a London Eye, deixando apenas o trecho até Tower Bridge para barco ou metrô. No Dia 2, King’s Cross e Camden encaixam perfeitamente no mesmo eixo, e Notting Hill fecha a experiência de forma mais leve e charmosa.'
 },
   {
-    id:'amsterdam', name:'Amsterdã', flag:'🇳🇱', country:'Países Baixos', dates:'2 dias',
-    address:'Jan Gijzenkade 156, Haarlem, Noord-Holland 2022 DP',
-    lat:52.3968, lng:4.6394, mapQ:'Jan Gijzenkade 156 Haarlem',
-    transport:'A hospedagem fica em Haarlem. Faz sentido usar Haarlem como base: 1 dia para tulipas/Keukenhof e 1 dia para Amsterdam. Para Amsterdam, a perna principal é de trem Haarlem ↔ Amsterdam Centraal; para Keukenhof, saiam de Haarlem Station.',
-    airportTransfer:'SCHIPHOL → Haarlem: use trem/ônibus público a partir de Schiphol Plaza; o aeroporto informa opções frequentes de trem e ônibus para Haarlem. Se houver impacto das obras ferroviárias de abril, o 9292 indica rotas alternativas. Chegando em Haarlem Station, a última perna até Jan Gijzenkade 156 pode ser feita de ônibus local ou táxi curto.',
-    trainTips:[
-      'Haarlem ↔ Amsterdam Centraal de trem é o deslocamento-base do roteiro.',
-      'Haarlem Station → Keukenhof: KeukenhofBuzz 850, direto e sem paradas, é a melhor opção na temporada.',
-      'Alternativa para Keukenhof: ônibus regular 50, útil se o 850 não encaixar no horário.',
-      'Para a volta tarde/noite de Amsterdam, vale sempre conferir o 9292 no dia por causa de eventuais ajustes operacionais.'
-    ],
-    mapRoutes:[
-      {title:'Mapa tulipas — Haarlem Station → Keukenhof', desc:'Rota para o dia das flores com saída de Haarlem.', query:'Haarlem Station to Keukenhof Lisse transit'},
-      {title:'Mapa Amsterdam clássico', desc:'Amsterdam Centraal, Rijksmuseum, Van Gogh, 9 Straatjes e canais.', query:'Amsterdam Centraal to Rijksmuseum to Van Gogh Museum to De 9 Straatjes walking'},
-      {title:'Mapa noite / bares em Amsterdam', desc:'Canais + bares sugeridos.', query:'Amsterdam Centraal to Pulitzer\'s Bar to Hiding in Plain Sight to Hannekes Boom'}
-    ],
-    days:['Dia 1','Dia 2'],
-    dayDefaults:[
-      'MANHÃ: sair cedo de Haarlem Station para Keukenhof/Lisse. TARDE: continuar no parque e voltar para Haarlem sem correria. NOITE: Grote Markt ou, se sobrar energia, trem para Amsterdam e drinks à beira dos canais.',
-      'MANHÃ: trem para Amsterdam Centraal e seguir para Rijksmuseum ou Van Gogh. TARDE: Jordaan/9 Straatjes e caminhada pelos canais. NOITE: bar em Amsterdam e retorno de trem para Haarlem.'
-    ],
-    tourists:[
-      {name:'Keukenhof (Lisse)', icon:'🌷', meta:'prioridade da viagem na temporada de tulipas'},
-      {name:'Grote Markt (Haarlem)', icon:'🏘️', meta:'centro histórico charmoso e perto da base'},
-      {name:'Rijksmuseum', icon:'🏛️', meta:'principal clássico em Amsterdam'},
-      {name:'Van Gogh Museum', icon:'🎨', meta:'combina com Museumplein'},
-      {name:'Canais de Amsterdam', icon:'🚤', meta:'ideal no fim da tarde'}
-    ],
-    restaurants:[
-      {name:'Hiding in Plain Sight', icon:'🍸', meta:'coquetelaria forte em Amsterdam'},
-      {name:'Pulitzer\'s Bar', icon:'🥂', meta:'opção elegante perto dos canais'},
-      {name:'Hannekes Boom', icon:'🍺', meta:'descontraído, bom para fim de tarde'},
-      {name:'Jopenkerk (Haarlem)', icon:'🍻', meta:'excelente pedida na volta para a base'}
-    ],
-    notesDefault:'Keukenhof funciona na temporada de primavera. Em 2026, há obras ferroviárias em parte da região de Amsterdam/Schiphol em datas de abril, então vale conferir 9292 e NS na véspera e no dia.'
-  },
+  id:'amsterdam', name:'Amsterdã', flag:'🇳🇱', country:'Países Baixos', dates:'4 dias',
+  address:'Jan Gijzenkade 156, Haarlem, Noord-Holland 2022 DP, Netherlands',
+  lat:52.3967, lng:4.6263, mapQ:'Jan Gijzenkade 156 Haarlem Netherlands',
+  transport:'Base em Haarlem com ótima logística para combinar chegada tranquila, Keukenhof + Bloemencorso e um dia clássico em Amsterdã. No dia da chegada, vale manter a noite leve em Haarlem. No dia 18/04, o foco ideal é Keukenhof e os campos de tulipas, com chance de ver o Desfile das Flores no fim da tarde em Haarlem. No dia 19/04, o melhor é fazer Amsterdã de trem, deixando o retorno para a noite.',
+  airportTransfer:'SCHIPHOL → Haarlem/Airbnb: o aeroporto informa que os ônibus partem em frente ao Schiphol Plaza, e o ônibus pode ser uma boa opção para Haarlem; também vale usar Uber ou táxi para chegar mais direto ao endereço. Para os trens e deslocamentos do dia 19, o app da NS ajuda bastante a verificar horários em tempo real. :contentReference[oaicite:1]{index=1}',
+  trainTips:[
+    'Schiphol → Haarlem: ônibus ou carro por aplicativo/táxi costumam ser as opções mais simples na chegada noturna. :contentReference[oaicite:2]{index=2}',
+    'Haarlem Station → Keukenhof: use o KeukenhofBuzz 850; o trajeto leva cerca de 40 minutos e o combiticket deve ser comprado com antecedência. :contentReference[oaicite:3]{index=3}',
+    'No dia 18/04, espere mais movimento por causa do Bloemencorso Bollenstreek, que termina em Haarlem. :contentReference[oaicite:4]{index=4}',
+    'Haarlem → Amsterdam Centraal: trem direto em cerca de 16 minutos, ótima opção para o dia 19. :contentReference[oaicite:5]{index=5}',
+    'Em Amsterdã, faça o centro a pé e complemente com cruzeiro pelos canais.',
+    'Para a Casa de Anne Frank, reserve no site oficial com antecedência: os ingressos abrem toda terça às 10h CEST para visitas 6 semanas depois. :contentReference[oaicite:6]{index=6}'
+  ],
+  mapRoutes:[
+    {title:'Mapa dia 1 — Chegada e noite leve em Haarlem', desc:'Schiphol, Airbnb e Grote Markt em Haarlem.', query:'Schiphol Airport to Jan Gijzenkade 156 Haarlem to Grote Markt Haarlem'},
+    {title:'Mapa dia 2 — Keukenhof + campos + retorno para Haarlem', desc:'Haarlem Station, Keukenhof e região dos campos de tulipas.', query:'Jan Gijzenkade 156 Haarlem to Haarlem Station to Keukenhof Lisse'},
+    {title:'Mapa dia 3 — Amsterdã clássica', desc:'Amsterdam Centraal, Dam Square, Anne Frank House, canais, Jordaan e Museumplein.', query:'Haarlem Station to Amsterdam Centraal to Dam Square Amsterdam to Anne Frank House to Jordaan Amsterdam to Rijksmuseum Amsterdam'},
+    {title:'Mapa dia 4 — Despedida', desc:'Airbnb, Molen de Adriaan e Schiphol.', query:'Jan Gijzenkade 156 Haarlem to Molen de Adriaan Haarlem to Schiphol Airport'}
+  ],
+  days:['Dia 1','Dia 2','Dia 3','Dia 4'],
+  dayDefaults:[
+    '19:00 chegada ao Aeroporto de Schiphol. 19:45 deslocamento para Haarlem e check-in. 21:00 se ainda houver energia, caminhada até o centro de Haarlem. 21:15 Grote Markt para jantar de boas-vindas e primeira noite leve na cidade.',
+    '08:30 saída para Haarlem Station. 09:00 embarque rumo ao Keukenhof. 09:40 chegada ao parque. MANHÃ no Keukenhof. TARDE com bicicleta pelos campos de tulipas ao redor. FIM DE TARDE retorno para Haarlem para tentar ver a chegada do Bloemencorso no centro. Dia muito especial e concorrido, então vale comprar ingresso com antecedência. :contentReference[oaicite:7]{index=7}',
+    '08:30 saída de Haarlem. 09:00 trem para Amsterdam Centraal. MANHÃ no centro: Praça Dam e caminhada pelos canais. FIM DA MANHÃ ou começo da TARDE: Casa de Anne Frank, se conseguirem ingresso. Depois, cruzeiro pelos canais. TARDE livre para escolher entre Rijksmuseum, Van Gogh Museum ou explorar Jordaan. NOITE com jantar em Amsterdã e retorno tranquilo de trem para Haarlem. O Rijksmuseum abre diariamente das 9h às 17h, e o Van Gogh Museum em abril costuma abrir diariamente das 9h às 18h, com sextas até 21h. :contentReference[oaicite:8]{index=8}',
+    '07:30 café da manhã em Haarlem. 08:30 passeio curto pela região do rio Spaarne, se houver tempo. 09:00 saída para Schiphol. 10:00 a 10:30 chegada ideal ao aeroporto para voo às 13h.'
+  ],
+  tourists:[
+    {name:'Grote Markt Haarlem', icon:'🏛️', meta:'praça linda para a primeira noite'},
+    {name:'Keukenhof', icon:'🌷', meta:'abril é a melhor época; compre ingresso antecipado'},
+    {name:'Campos de Tulipas', icon:'🚲', meta:'melhor experiência de bike no entorno do parque'},
+    {name:'Bloemencorso', icon:'🎉', meta:'desfile floral chega a Haarlem em 18/04/2026'},
+    {name:'Praça Dam e Canais', icon:'🌉', meta:'essência do centro de Amsterdã'},
+    {name:'Casa de Anne Frank', icon:'📚', meta:'reserva obrigatória com muita antecedência'},
+    {name:'Rijksmuseum', icon:'🖼️', meta:'clássico absoluto de Amsterdã'},
+    {name:'Van Gogh Museum', icon:'🎨', meta:'ótimo plano alternativo ao Rijksmuseum'}
+  ],
+  restaurants:[
+    {name:'Grote Markt Haarlem', icon:'🍽️', meta:'ótimo eixo para jantar na chegada'},
+    {name:'Cafés no entorno do Keukenhof', icon:'☕', meta:'bom apoio para o dia das tulipas'},
+    {name:'Jordaan', icon:'🥘', meta:'excelente região para jantar em Amsterdã'},
+    {name:'Haarlem centro', icon:'🍺', meta:'boa pedida para a última noite'}
+  ],
+  notesDefault:'O dia 18/04 tende a ser o mais cheio por causa do Keukenhof e do Bloemencorso, então vale comprar tudo com antecedência e sair cedo. A Casa de Anne Frank só vende ingressos no site oficial e libera as entradas 6 semanas antes, sempre às terças às 10h CEST. Para museu em Amsterdã, escolha apenas um se quiser um dia mais leve; Rijksmuseum e Van Gogh funcionam melhor como alternativas, não como combo apressado. :contentReference[oaicite:9]{index=9}'
+},
   {
     id:'paris', name:'Paris', flag:'🇫🇷', country:'França', dates:'5 dias',
     address:'13 Rue des Jeuneurs, Paris 75002',

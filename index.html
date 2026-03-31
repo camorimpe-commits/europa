@@ -241,46 +241,53 @@ const cities = [
   notesDefault:'O dia 18/04 tende a ser o mais cheio por causa do Keukenhof e do Bloemencorso, então vale comprar tudo com antecedência e sair cedo. A Casa de Anne Frank só vende ingressos no site oficial e libera as entradas 6 semanas antes, sempre às terças às 10h CEST. Para museu em Amsterdã, escolha apenas um se quiser um dia mais leve; Rijksmuseum e Van Gogh funcionam melhor como alternativas, não como combo apressado. :contentReference[oaicite:9]{index=9}'
 },
   {
-    id:'paris', name:'Paris', flag:'🇫🇷', country:'França', dates:'5 dias',
-    address:'13 Rue des Jeuneurs, Paris 75002',
-    lat:48.8693, lng:2.3434, mapQ:'13 Rue des Jeuneurs 75002 Paris',
-    transport:'O Airbnb está muito bem posicionado no 2º arrondissement. A lógica ideal é: 1 dia leve no entorno, 1 dia Disney de RER, 22/04 Louvre + eixo Tuileries/Concorde, 1 dia Île de la Cité/Marais e 1 dia Torre Eiffel ou Montmartre.',
-    airportTransfer:'CDG → Airbnb: melhor opção de trem é o RER B até Châtelet–Les Halles; dali, vocês podem seguir a pé por cerca de 15–20 min ou completar com metrô/táxi curto até a Rue des Jeuneurs. Para o trecho aeroporto ⇄ Paris, a Paris Aéroport considera o RER B a ligação mais simples e direta. Atenção: o RER B tem obras noturnas em vários dias de semana em 2026, então vale checar a operação se o voo pousar muito tarde.',
-    trainTips:[
-      'Rue des Jeuneurs → Sentier (linha 3) é a referência mais próxima para vários deslocamentos.',
-      'Airbnb → Disneyland Paris: ir até Châtelet–Les Halles e pegar o RER A para Marne-la-Vallée/Chessy.',
-      'Airbnb → Louvre: dá para fazer a pé em cerca de 20 minutos; de metrô, o alvo é Palais Royal–Musée du Louvre.',
-      'Airbnb → Torre Eiffel: metrô costuma render melhor que ônibus; uma troca simples normalmente resolve.',
-      'Airbnb → Montmartre: metrô até a área de Anvers/Abbesses costuma ser a melhor lógica.'
-    ],
-    mapRoutes:[
-      {title:'Mapa chegada — CDG até o Airbnb', desc:'RER B até Châtelet–Les Halles e última perna até a Rue des Jeuneurs.', query:'Charles de Gaulle Airport to 13 Rue des Jeuneurs 75002 Paris transit'},
-      {title:'Mapa Disney', desc:'Base no 2º arrondissement até Marne-la-Vallée/Chessy.', query:'13 Rue des Jeuneurs 75002 Paris to Disneyland Paris transit'},
-      {title:'Mapa 22/04 — Louvre + Tuileries + Concorde', desc:'Dia já travado pelo ingresso do Louvre.', query:'13 Rue des Jeuneurs 75002 Paris to Louvre Museum to Jardin des Tuileries to Place de la Concorde walking'},
-      {title:'Mapa Île de la Cité + Marais', desc:'Notre-Dame, Conciergerie e caminhada até o Marais.', query:'13 Rue des Jeuneurs 75002 Paris to Notre Dame Paris to Conciergerie to Le Marais walking'}
-    ],
-    days:['Dia 1','Dia 2','Dia 3','Dia 4','Dia 5'],
-    dayDefaults:[
-      'MANHÃ/TARDE: chegada e check-in. FIM DE TARDE: Galerie Vivienne, Palais-Royal e Opéra Garnier sem grandes deslocamentos. NOITE: jantar perto do Airbnb.',
-      'MANHÃ: sair cedo para Disneyland Paris via RER A. TARDE: parque. NOITE: retorno para o 2º arrondissement.',
-      '22/04 — MANHÃ: Louvre com ingresso já comprado. TARDE: Tuileries, Place de la Concorde e, se quiserem, Champs-Élysées. NOITE: jantar na região central.',
-      'MANHÃ: Notre-Dame e Île de la Cité. TARDE: Conciergerie/Sainte-Chapelle e caminhada até o Marais. NOITE: jantar no Marais ou retorno ao 2º.',
-      'MANHÃ: Torre Eiffel e Trocadéro OU Montmartre/Sacré-Cœur. TARDE: façam a segunda opção, se houver energia. NOITE: fechar a viagem com jantar especial.'
-    ],
-    tourists:[
-      {name:'Galerie Vivienne', icon:'✨', meta:'bem perto da hospedagem'},
-      {name:'Disneyland Paris', icon:'🏰', meta:'separar um dia inteiro'},
-      {name:'Museu do Louvre', icon:'🖼️', meta:'visita fixada para 22/04'},
-      {name:'Notre-Dame', icon:'⛪', meta:'combina com Île de la Cité'},
-      {name:'Torre Eiffel', icon:'🗼', meta:'melhor no fim da tarde/noite'}
-    ],
-    restaurants:[
-      {name:'Bouillon Chartier', icon:'🍲', meta:'clássico e com boa relação custo-benefício'},
-      {name:'Bistrot Vivienne', icon:'🍷', meta:'ótimo na área do Airbnb'},
-      {name:'Kodawari Ramen', icon:'🍜', meta:'boa opção no eixo central'}
-    ],
-    notesDefault:'O Louvre abre na quarta-feira até mais tarde e o dia 22/04 está bem encaixado. Para Disney, saiam cedo e confiram a operação do RER A na véspera.'
-  },
+  id:'paris', name:'Paris', flag:'🇫🇷', country:'França', dates:'6 dias',
+  address:'13 Rue des Jeuneurs, Paris 75002',
+  lat:48.8693, lng:2.3434, mapQ:'13 Rue des Jeuneurs 75002 Paris',
+  transport:'O Airbnb está muito bem posicionado no 2º arrondissement. A lógica ideal é: chegada leve com noite no bairro, 1 dia Paris monumental, 1 dia Louvre + eixo Tuileries/Concorde/Champs-Élysées, 1 dia Disneyland Paris, 1 dia Montmartre + Opéra + Passagens Cobertas e 1 manhã final de despedida.',
+  airportTransfer:'CDG → Airbnb: melhor opção de trem é o RER B até Châtelet–Les Halles; dali, vocês podem seguir a pé por cerca de 15–20 min ou completar com metrô/táxi curto até a Rue des Jeuneurs. Para o trecho aeroporto ⇄ Paris, a Paris Aéroport considera o RER B uma das ligações mais práticas. Atenção: se o voo pousar muito tarde, vale comparar com Uber/táxi para chegar com mais conforto.',
+  trainTips:[
+    'Rue des Jeuneurs → Rue Montorgueil: dá para fazer a pé em poucos minutos.',
+    'Rue des Jeuneurs → Palais Royal / Louvre: ótimo trecho para caminhada.',
+    'Airbnb → Île de la Cité / Notre-Dame: caminhada agradável ou metrô curto, conforme o ritmo do dia.',
+    'Airbnb → Torre Eiffel / Trocadéro: metrô costuma render melhor que ônibus.',
+    'Airbnb → Disneyland Paris: ir até Châtelet–Les Halles e pegar o RER A para Marne-la-Vallée/Chessy.',
+    'Airbnb → Montmartre: metrô até a área de Anvers ou Abbesses costuma ser a melhor lógica.',
+    'Opéra Garnier, Galeries Lafayette e as Passagens Cobertas combinam muito bem no mesmo dia.'
+  ],
+  mapRoutes:[
+    {title:'Mapa dia 1 — Chegada e primeira noite', desc:'Hospedagem, Rue Montorgueil, Palais Royal e Hôtel de Ville.', query:'13 Rue des Jeuneurs 75002 Paris to Rue Montorgueil Paris to Palais Royal Paris to Hotel de Ville Paris'},
+    {title:'Mapa dia 2 — Paris monumental', desc:'Île de la Cité, Notre-Dame, Pont Neuf, Trocadéro, Torre Eiffel e Ponte de l Alma.', query:'13 Rue des Jeuneurs 75002 Paris to Notre Dame Paris to Pont Neuf Paris to Trocadero Paris to Eiffel Tower Paris to Pont de l Alma Paris'},
+    {title:'Mapa dia 3 — Louvre + Tuileries + Champs-Élysées', desc:'Louvre, Jardin des Tuileries, Place de la Concorde, Champs-Élysées e Arco do Triunfo.', query:'13 Rue des Jeuneurs 75002 Paris to Louvre Museum to Jardin des Tuileries to Place de la Concorde to Champs-Elysees Paris to Arc de Triomphe'},
+    {title:'Mapa dia 4 — Disneyland Paris', desc:'Base no 2º arrondissement até Marne-la-Vallée/Chessy.', query:'13 Rue des Jeuneurs 75002 Paris to Chatelet-Les-Halles Paris to Disneyland Paris transit'},
+    {title:'Mapa dia 5 — Montmartre + Opéra + bairro', desc:'Sacré-Cœur, Montmartre, Opéra Garnier, Galeries Lafayette e Passagens Cobertas.', query:'13 Rue des Jeuneurs 75002 Paris to Sacre-Coeur Paris to Montmartre Paris to Opera Garnier Paris to Galeries Lafayette Haussmann to Passage des Panoramas to Passage Jouffroy'},
+    {title:'Mapa dia 6 — Despedida', desc:'Último café da manhã e opção entre Centre Pompidou ou Musée d Orsay.', query:'13 Rue des Jeuneurs 75002 Paris to Centre Pompidou Paris to Musee d Orsay Paris'}
+  ],
+  days:['Dia 1','Dia 2','Dia 3','Dia 4','Dia 5','Dia 6'],
+  dayDefaults:[
+    '20/04 — 16:00–17:30 desembarque e deslocamento até o 2º arrondissement. 18:30 check-in na Rue des Jeuneurs. NOITE: caminhada de 5 min até a Rue Montorgueil para jantar e sentir a vibe parisiense. Depois, passeio noturno até o Palais Royal ou Hôtel de Ville para ver a iluminação monumental.',
+    '21/04 — MANHÃ: Île de la Cité com Catedral de Notre-Dame e Pont Neuf. TARDE: região da Torre Eiffel, começando pelo Trocadéro para a foto clássica, descendo até a base da torre e seguindo pelo Champ de Mars. PÔR DO SOL/NOITE: cruzeiro pelo Sena saindo da Ponte de l Alma, se houver energia.',
+    '22/04 — MANHÃ/TARDE: Musée du Louvre, com saída a pé da hospedagem. DICA: usar a entrada pela Porte des Lions ou pelo Carrousel du Louvre para evitar a multidão da pirâmide. FINAL DE TARDE: Jardin des Tuileries, Place de la Concorde, caminhada pela Champs-Élysées e encerramento no Arco do Triunfo.',
+    '23/04 — DIA TODO: bate-volta para Disneyland Paris. Caminhada até Châtelet–Les Halles e depois RER A no sentido Marne-la-Vallée/Chessy. NOITE: assistir ao show de fogos no castelo e retornar de trem para Paris.',
+    '24/04 — MANHÃ: Montmartre e Sacré-Cœur, explorando as ruelas mais tranquilas atrás da igreja. TARDE: Opéra Garnier e Galeries Lafayette Haussmann, com subida ao terraço para vista panorâmica. NOITE: despedida nas Passagens Cobertas do bairro, como Passage des Panoramas e Passage Jouffroy.',
+    '25/04 — MANHÃ: último café da manhã em um café típico de calçada. Se o voo for mais tarde, encaixar Centre Pompidou ou Musée d Orsay antes do deslocamento final.'
+  ],
+  tourists:[
+    {name:'Rue Montorgueil', icon:'🥐', meta:'ótima para a primeira noite e clima parisiense'},
+    {name:'Notre-Dame', icon:'⛪', meta:'combina com Île de la Cité e Pont Neuf'},
+    {name:'Torre Eiffel', icon:'🗼', meta:'melhor com Trocadéro e fim de tarde'},
+    {name:'Museu do Louvre', icon:'🖼️', meta:'visita central do dia 22/04'},
+    {name:'Disneyland Paris', icon:'🏰', meta:'separar um dia inteiro'},
+    {name:'Montmartre', icon:'🎨', meta:'bairro boêmio com Sacré-Cœur e ruas charmosas'}
+  ],
+  restaurants:[
+    {name:'Rue Montorgueil', icon:'🍷', meta:'melhor eixo para jantar na chegada'},
+    {name:'Bouillon Chartier', icon:'🍲', meta:'clássico e com boa relação custo-benefício'},
+    {name:'Bistrot Vivienne', icon:'🥂', meta:'ótimo na área do Airbnb'},
+    {name:'Passage des Panoramas', icon:'🍽️', meta:'boa pedida para a última noite'}
+  ],
+  notesDefault:'A base no 2º arrondissement facilita muito os deslocamentos a pé no centro. O Louvre encaixa perfeitamente no dia 22/04. Para a Disneyland, saiam cedo e confiram a operação do RER A na véspera. No dia final, Centre Pompidou ou Musée d Orsay funcionam melhor como plano opcional, dependendo do horário do voo.'
+},
   {
     id:'porto-final', name:'Porto Final', flag:'🇵🇹', country:'Portugal', dates:'25–26 abr', address:'Aeroporto do Porto',
     lat:41.1496, lng:-8.6109, mapQ:'Porto Airport Portugal',

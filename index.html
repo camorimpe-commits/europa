@@ -155,41 +155,46 @@ const cities = [
     notesDefault:'Reservar com antecedência Jerónimos/Castelo se quiser evitar filas. Quando você me passar o endereço em Lisboa, eu ajusto o traslado do aeroporto e os pontos mais próximos.'
   },
   {
-    id:'london', name:'Londres', flag:'🇬🇧', country:'Reino Unido', dates:'2 dias',
-    address:'36a Strutton Ground Floor 1 flat 1, SW1P 2HR',
-    lat:51.4975, lng:-0.1324, mapQ:'36a Strutton Ground SW1P 2HR London',
-    transport:'Base excelente em Westminster. A melhor lógica é fazer Westminster + South Kensington + Notting Hill em um dia, e Camden + Piccadilly/Soho no outro.',
-    airportTransfer:'HEATHROW → Airbnb: melhor opção ferroviária é Elizabeth line até Paddington e, de lá, Circle ou District line até St James’s Park; depois, caminhada curta até Strutton Ground. Alternativa mais simples, porém mais lenta: Piccadilly line até South Kensington/Green Park com troca. Para entrar e sair do transporte, o contactless do cartão/celular funciona muito bem em Londres.',
-    trainTips:[
-      'Airbnb → St James’s Park / Westminster: dá para fazer a pé.',
-      'Westminster/St James’s Park → South Kensington (Museu de História Natural): District ou Circle line.',
-      'St James’s Park → Notting Hill Gate: Circle line direta costuma ser a opção mais confortável.',
-      'Westminster → Camden Town: vá de Jubilee/Victoria/Northern combinando a rota do momento no app da TfL; Tube rende mais que ônibus aqui.',
-      'Westminster → Piccadilly Circus: Jubilee até Green Park e caminhada curta, ou District/Circle + conexão conforme o fluxo do dia.'
-    ],
-    mapRoutes:[
-      {title:'Mapa dia 1 — Westminster + South Kensington + Notting Hill', desc:'Airbnb, Westminster Abbey, Big Ben, St James’s Park, Buckingham Palace, Natural History Museum e Notting Hill.', query:'36a Strutton Ground London to Westminster Abbey to Big Ben to St James\'s Park to Buckingham Palace to Natural History Museum London to Notting Hill Gate'},
-      {title:'Mapa dia 2 — Camden + West End', desc:'Camden Market, Regent Street, Piccadilly Circus, Soho e Covent Garden.', query:'36a Strutton Ground London to Camden Market to Regent Street London to Piccadilly Circus to Soho London to Covent Garden'}
-    ],
-    days:['Dia 1','Dia 2'],
-    dayDefaults:[
-      'MANHÃ: Westminster Abbey, Big Ben, Parliament e St James’s Park saindo a pé do Airbnb. TARDE: Buckingham Palace e depois Tube para South Kensington, com visita ao Museu de História Natural. NOITE: Notting Hill/Portobello para jantar ou pub.',
-      'MANHÃ: Camden Town e Camden Market cedo. TARDE: Regent Street, Piccadilly Circus e Soho/Covent Garden. NOITE: retorno para organizar a saída do dia seguinte.'
-    ],
-    tourists:[
-      {name:'Westminster Abbey', icon:'⛪', meta:'muito perto da hospedagem'},
-      {name:'Natural History Museum', icon:'🦖', meta:'South Kensington, ótimo no meio do roteiro'},
-      {name:'Notting Hill', icon:'🏘️', meta:'charme, lojinhas e Portobello Road'},
-      {name:'Camden Town & Camden Market', icon:'🎸', meta:'vibe alternativa e street food'},
-      {name:'Piccadilly Circus', icon:'🌃', meta:'combina com Soho e West End'}
-    ],
-    restaurants:[
-      {name:'Strutton Ground Market', icon:'🥙', meta:'prático e perto do Airbnb'},
-      {name:'Dishoom Carnaby', icon:'🍛', meta:'boa pedida após Piccadilly/Soho'},
-      {name:'The Churchill Arms', icon:'🍺', meta:'pub clássico no eixo de Notting Hill/Kensington'}
-    ],
-    notesDefault:'O Museu de História Natural abre diariamente em geral das 10h às 17h50; Camden rende melhor cedo e Piccadilly/Soho encaixam bem no fim da tarde/noite.'
-  },
+  id:'london', name:'Londres', flag:'🇬🇧', country:'Reino Unido', dates:'2 dias',
+  address:'36a Strutton Ground Floor 1 flat 1, SW1P 2HR',
+  lat:51.4975, lng:-0.1324, mapQ:'36a Strutton Ground SW1P 2HR London',
+  transport:'Base excelente em Westminster. O Dia 1 funciona muito bem com foco em caminhada pelos ícones centrais de Londres, finalizando a noite perto do Airbnb. O Dia 2 combina King’s Cross, Camden Town e Notting Hill, com deslocamentos simples de metrô.',
+  airportTransfer:'HEATHROW → Airbnb: melhor opção ferroviária é Elizabeth line até Paddington e, de lá, Circle ou District line até St James’s Park; depois, caminhada curta até Strutton Ground. Alternativa mais simples, porém mais lenta: Piccadilly line até South Kensington/Green Park com troca. Para entrar e sair do transporte, o contactless do cartão/celular funciona muito bem em Londres.',
+  trainTips:[
+    'Airbnb → The King’s Gallery / Buckingham Palace / Big Ben: dá para fazer boa parte a pé.',
+    'Big Ben → London Eye: basta atravessar a Westminster Bridge.',
+    'London Eye → Tower Bridge: use o Uber Boat a partir do píer London Eye ou metrô.',
+    'Westminster → King’s Cross (Plataforma 9 ¾): Tube é a forma mais prática para começar o Dia 2.',
+    'King’s Cross → Camden Town: são apenas 2 paradas de metrô pela Northern Line.',
+    'Camden Town → Notting Hill: faça o deslocamento de metrô ou ônibus rumo ao oeste da cidade.'
+  ],
+  mapRoutes:[
+    {title:'Mapa dia 1 — Londres clássica a pé + deslocamento final', desc:'Airbnb, The King’s Gallery, Buckingham Palace, Big Ben & Parlamento, London Eye, Tower Bridge, Piccadilly Circus & Chinatown e The Albert Pub.', query:'36a Strutton Ground London to The King’s Gallery London to Buckingham Palace to Big Ben London to London Eye to Tower Bridge to Piccadilly Circus to Chinatown London to The Albert Pub London'},
+    {title:'Mapa dia 2 — Magia, Mercados e Cores', desc:'Airbnb, Plataforma 9 3/4 em King’s Cross, Camden Town e Notting Hill.', query:'36a Strutton Ground London to Platform 9 3/4 King’s Cross to Camden Town London to Notting Hill London'}
+  ],
+  days:['Dia 1','Dia 2'],
+  dayDefaults:[
+    '09:30 The King’s Gallery. 11:00 Buckingham Palace. 12:30 Big Ben & Parlamento com caminhada pelo St. James’s Park. 14:30 London Eye após atravessar a Westminster Bridge. 16:30 Tower Bridge com deslocamento por Uber Boat ou metrô. 19:00 Piccadilly Circus & Chinatown para jantar e curtir as luzes da cidade. 21:30 The Albert Pub. Roteiro com ótima lógica saindo do Airbnb e terminando perto da hospedagem.',
+    '09:00 Plataforma 9 ¾ em King’s Cross. 11:30 Camden Town, com almoço nos mercados de comida de rua do Camden Lock. 17:00 Notting Hill para explorar a Portobello Road, ver as casas coloridas e fechar o dia com chá da tarde. Dia leve, bonito e com deslocamentos simples de metrô.'
+  ],
+  tourists:[
+    {name:'The King’s Gallery', icon:'👑', meta:'museu da realeza e início ideal do Dia 1'},
+    {name:'Buckingham Palace', icon:'🏰', meta:'logo ao lado da galeria'},
+    {name:'Big Ben & Parlamento', icon:'🕰️', meta:'cartão-postal clássico de Westminster'},
+    {name:'London Eye', icon:'🎡', meta:'fica após cruzar a Westminster Bridge'},
+    {name:'Tower Bridge', icon:'🌉', meta:'ótima sequência após o trecho central'},
+    {name:'Plataforma 9 ¾', icon:'🪄', meta:'parada clássica em King’s Cross'},
+    {name:'Camden Town', icon:'🎸', meta:'mercados, street food e vibe alternativa'},
+    {name:'Notting Hill', icon:'🏘️', meta:'casas coloridas e Portobello Road'}
+  ],
+  restaurants:[
+    {name:'Strutton Ground Market', icon:'🥙', meta:'prático e perto do Airbnb'},
+    {name:'Chinatown London', icon:'🥢', meta:'excelente para jantar no Dia 1'},
+    {name:'Camden Lock Market', icon:'🌮', meta:'melhor encaixe para almoço no Dia 2'},
+    {name:'The Albert Pub', icon:'🍺', meta:'ótimo fechamento de noite perto da hospedagem'}
+  ],
+  notesDefault:'No Dia 1, quase todo o roteiro pode ser feito a pé até a London Eye, deixando apenas o trecho até Tower Bridge para barco ou metrô. No Dia 2, King’s Cross e Camden encaixam perfeitamente no mesmo eixo, e Notting Hill fecha a experiência de forma mais leve e charmosa.'
+},
   {
     id:'amsterdam', name:'Amsterdã', flag:'🇳🇱', country:'Países Baixos', dates:'2 dias',
     address:'Jan Gijzenkade 156, Haarlem, Noord-Holland 2022 DP',

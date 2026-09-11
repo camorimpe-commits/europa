@@ -343,96 +343,133 @@ function renderNav(){
     </div>
   `).join('');
 }
-function selectCity(i){ activeCity = i; renderNav(); renderContent(); window.scrollTo({top: document.querySelector('.city-nav').offsetTop - 60, behavior:'smooth'}); }
-function setTab(tab, el){ activeTab = tab; document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active')); el.classList.add('active'); renderContent(); }
-function saveDayPlan(cityId, idx, val){ dayPlans[cityId][idx] = val; storage.set('days_'+cityId, dayPlans[cityId]); }
-function saveNote(cityId, val){ notes[cityId] = val; storage.set('notes_'+cityId, val); }
-
-function renderContent(){
-  const city = cities[activeCity];
-  const el = document.getElementById('mainContent');
-  let html = '';
-
-  if(activeTab === 'roteiro'){
-    html += `<div class="transport-box"><h3>📍 ${city.name}</h3><p>${city.transport}</p></div>`;
-    if(city.airportTransfer){
-      html += `<div class="card"><div class="card-title">🚆 Aeroporto → hospedagem</div><div class="mini-note">${city.airportTransfer}</div></div>`;
-    }
-    if(city.trainTips && city.trainTips.length){
-      html += `<div class="card"><div class="card-title">🚇 Trem / metrô mais úteis</div>${city.trainTips.map(t => `<div class="day-row"><span class="day-badge">TIP</span><div class="place-info"><div class="place-meta" style="font-size:13px;color:var(--gray-900)">${t}</div></div></div>`).join('')}</div>`;
-    }
-    html += `<div class="card">
-      <div class="card-title">📆 Planejamento diário</div>
-      ${city.days.map((day,i) => `
-        <div class="day-row">
-          <span class="day-badge">${day}</span>
-          <textarea class="day-input" rows="3" onchange="saveDayPlan('${city.id}',${i},this.value)">${(dayPlans[city.id][i]||'').replace(/</g,'&lt;')}</textarea>
-        </div>`).join('')}
-    </div>`;
-    html += `<div class="card">
-      <div class="card-title">📝 Notas da cidade</div>
-      <textarea class="notes-input" onchange="saveNote('${city.id}',this.value)">${notes[city.id].replace(/</g,'&lt;')}</textarea>
-    </div>`;
-    html += `<a class="maps-btn" href="${cityMapsUrl(city)}" target="_blank">🗺 Abrir base da cidade no Google Maps</a>`;
-  }
-
-  if(activeTab === 'turistico'){
-    html += `<div class="card"><div class="card-title">🏛 Pontos turísticos sugeridos — ${city.name}</div>
-      ${city.tourists.map(t => `
-        <a class="place-item" href="${mapsUrl(t.name, city)}" target="_blank">
-          <div class="place-icon pi-tourist">${t.icon}</div>
-          <div class="place-info"><div class="place-name">${t.name}</div><div class="place-meta">${t.meta}</div><div class="place-link">Ver no Google Maps ↗</div></div>
-        </a>`).join('')}
-      <div class="mini-note">Os pontos foram organizados por blocos de deslocamento para evitar idas e vindas desnecessárias.</div>
-    </div>`;
-  }
-
-  if(activeTab === 'restaurantes'){
-    html += `<div class="card"><div class="card-title">🍽 Restaurantes / bares / paradas práticas — ${city.name}</div>
-      ${city.restaurants.map(r => `
-        <a class="place-item" href="${mapsUrl(r.name, city)}" target="_blank">
-          <div class="place-icon pi-restaurant">${r.icon}</div>
-          <div class="place-info"><div class="place-name">${r.name}</div><div class="place-meta">${r.meta}</div><div class="place-link">Ver no Google Maps ↗</div></div>
-        </a>`).join('')}
-    </div>`;
-  }
-
-  if(activeTab === 'apoio'){
-    html += `<div class="card"><div class="card-title">🏠 Base da viagem — ${city.name}</div>
-      <div class="place-item" style="cursor:default">
-        <div class="place-icon pi-airbnb">🏠</div>
-        <div class="place-info">
-          <div class="place-name">${city.address}</div>
-          <div class="place-meta">Endereço/base usado para organizar o roteiro e os mapas.</div>
-        </div>
-      </div>
-      <a class="maps-btn" href="${cityMapsUrl(city)}" target="_blank">📍 Ver endereço/base no Google Maps</a>
-    </div>`;
-    if(city.mapRoutes && city.mapRoutes.length){
-      html += `<div class="card"><div class="card-title">🗺 Mapas prontos entre os pontos</div>
-      ${city.mapRoutes.map(m => `
-        <a class="place-item" href="https://www.google.com/maps/search/${encodeURIComponent(m.query)}" target="_blank">
-          <div class="place-icon pi-tourist">🗺️</div>
-          <div class="place-info"><div class="place-name">${m.title}</div><div class="place-meta">${m.desc}</div><div class="place-link">Abrir rota/mapa ↗</div></div>
-        </a>`).join('')}
-      <div class="mini-note">Esses links servem para vocês visualizarem os pontos em conjunto no mapa e recalcularem a ordem conforme clima, fila e energia do dia.</div></div>`;
-    }
-  }
-
-  el.innerHTML = html;
+function selectCity(i){ 
+  activeCity = i; 
+  renderNav(); 
+  renderContent(); 
+  window.scrollTo({top: document.querySelector('.city-nav').offsetTop - 60, behavior:'smooth'}); 
 }
+
+function setTab(tab, el){ 
+  activeTab = tab; 
+  document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active')); 
+  el.classList.add('active'); 
+  renderContent(); 
+}
+
+function saveDayPlan(cityId, dayIndex, val) {
+  dayPlans[cityId][dayIndex] = val;
+  storage.set('days_' + cityId, dayPlans[cityId]);
+}
+
+function saveNote(cityId, val) {
+  notes[cityId] = val;
+  storage.set('notes_' + cityId, notes[cityId]);
+}
+
+function renderContent() {
+  const container = document.getElementById('mainContent');
+  const city = cities[activeCity];
+  
+  if (activeTab === 'roteiro') {
+    let html = `
+      <div class="card">
+        <div class="card-title">📍 Informações Principais</div>
+        <div style="font-size: 13px; color: var(--gray-700); margin-bottom: 8px;"><strong>Hospedagem:</strong> ${city.address}</div>
+        <a href="${cityMapsUrl(city)}" target="_blank" class="maps-btn">📍 Abrir Mapa Completo</a>
+      </div>
+      <div class="card">
+        <div class="card-title">📅 Programação Diária</div>
+    `;
+    city.days.forEach((dayLabel, idx) => {
+      html += `
+        <div class="day-row">
+          <div class="day-badge">${dayLabel}</div>
+          <textarea class="day-input" onchange="saveDayPlan('${city.id}', ${idx}, this.value)">${dayPlans[city.id][idx] || ''}</textarea>
+        </div>
+      `;
+    });
+    html += `</div>`;
+    
+    if (city.mapRoutes && city.mapRoutes.length > 0) {
+      html += `<div class="card"><div class="card-title">🗺 Rotas Recomendadas</div>`;
+      city.mapRoutes.forEach(r => {
+        html += `
+          <div style="margin-bottom: 10px;">
+            <div style="font-size: 13px; font-weight: 500;">${r.title}</div>
+            <div style="font-size: 11px; color: var(--gray-400); margin-bottom: 4px;">${r.desc}</div>
+            <a href="${mapsUrl(r.query, city)}" target="_blank" class="place-link">Abrir Rota no Maps ↗</a>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    }
+    
+    container.innerHTML = html;
+  } else if (activeTab === 'turistico') {
+    let html = `<div class="card"><div class="card-title">🏛 Atrações e Passeios</div>`;
+    city.tourists.forEach(t => {
+      html += `
+        <a href="${mapsUrl(t.name, city)}" target="_blank" class="place-item">
+          <div class="place-icon pi-tourist">${t.icon}</div>
+          <div class="place-info">
+            <div class="place-name">${t.name}</div>
+            <div class="place-meta">${t.meta}</div>
+            <div class="place-link">Ver no Google Maps ↗</div>
+          </div>
+        </a>
+      `;
+    });
+    html += `</div>`;
+    container.innerHTML = html;
+  } else if (activeTab === 'restaurantes') {
+    let html = `<div class="card"><div class="card-title">🍽 Restaurantes e Cafés</div>`;
+    city.restaurants.forEach(r => {
+      html += `
+        <a href="${mapsUrl(r.name, city)}" target="_blank" class="place-item">
+          <div class="place-icon pi-restaurant">${r.icon}</div>
+          <div class="place-info">
+            <div class="place-name">${r.name}</div>
+            <div class="place-meta">${r.meta}</div>
+            <div class="place-link">Ver no Google Maps ↗</div>
+          </div>
+        </a>
+      `;
+    });
+    html += `</div>`;
+    container.innerHTML = html;
+  } else if (activeTab === 'apoio') {
+    let html = `
+      <div class="transport-box">
+        <h3>🚆 Deslocamento & Traslados</h3>
+        <p><strong>Aeroporto/Trem:</strong> ${city.airportTransfer}</p>
+        <p style="margin-top: 8px;"><strong>Logística:</strong> ${city.transport}</p>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 Dicas do Trecho</div>
+        <ul style="font-size: 12px; color: var(--gray-700); padding-left: 16px; line-height: 1.6;">
+          ${city.trainTips ? city.trainTips.map(tip => `<li>${tip}</li>`).join('') : ''}
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">📝 Anotações do Trecho</div>
+        <textarea class="notes-input" onchange="saveNote('${city.id}', this.value)">${notes[city.id] || ''}</textarea>
+      </div>
+    `;
+    container.innerHTML = html;
+  }
+}
+
+// Inicialização da aplicação
 renderNav();
 renderContent();
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch((error) => {
-      console.error("Falha ao registrar service worker:", error);
-    });
+
+// Registro do Service Worker para suporte PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
   });
 }
 </script>
-
 </body>
 </html>

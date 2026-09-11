@@ -1,45 +1,44 @@
-const CACHE_NAME = "eurotrip-cache-v2"; // Incremente a versão para limpar o cache antigo
+const CACHE_NAME = 'eurotrip-cache-v2';
 const urlsToCache = [
-  "/",
-  "/index.html",
-  "/manifest.webmanifest",
-  "/icon-192.png",
-  "/icon-512.png"
+  '/',
+  '/index.html',
+  '/manifest.webmanifest',
+  '/ícone-192.png',
+  '/ícone-512.png'
 ];
 
-self.addEventListener("install", (event) => {
+// Instala o service worker e faz o cache dos arquivos essenciais
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
   );
-  self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    ))
-  );
-  self.clients.claim();
-});
-
-self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") return;
-
-  // Tenta buscar na REDE primeiro para trazer sempre os dados atualizados
+// Intercepta as requisições para fornecer os arquivos em cache quando offline
+self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        // Se a busca na rede deu certo, atualiza o cache e retorna a resposta nova
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-        }
-        return networkResponse;
+    caches.match(event.request)
+      .then(response => {
+        // Retorna o cache se encontrar, senão tenta baixar da rede
+        return response || fetch(event.request);
       })
-      .catch(() => {
-        // Se falhar (ex: usuário estiver offline), busca do CACHE como alternativa
-        return caches.match(event.request);
-      })
+  );
+});
+
+// Limpa caches antigos quando houver atualizações
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });

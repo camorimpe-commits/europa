@@ -14,107 +14,91 @@
 <style>
   :root {
     --navy: #1a3a6b; --navy-light: #2a5298; --gold: #c8a84b; --gold-light: #f0d080;
-    --cream: #f4f5f7; --white: #ffffff; --gray-100: #f9f9fb; --gray-200: #e8e6e0;
+    --cream: #faf8f3; --white: #ffffff; --gray-100: #f5f4f0; --gray-200: #e8e6e0;
     --gray-400: #9a9690; --gray-700: #4a4845; --gray-900: #1e1c1a; --radius: 8px;
-    --shadow-sm: 0 1px 4px rgba(0,0,0,0.05);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-900); min-height: 100vh; display: flex; flex-direction: column; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--gray-900); min-height: 100vh; display: flex; flex-direction: column; }
   
-  /* Header & Summary */
-  .app-header { background: var(--navy); color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 100; position: relative; }
-  .header-left h1 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 8px; }
-  .header-left p { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
-  .summary-strip { display: flex; gap: 40px; }
-  .sum-item { text-align: center; }
-  .sum-num { font-size: 18px; font-weight: 700; color: var(--gold-light); }
-  .sum-lbl { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+  /* Header */
+  .app-header { background: var(--navy); color: white; padding: 15px 30px; display: flex; flex-direction: column; justify-content: center; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .app-header h1 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .app-header p { font-size: 12px; color: rgba(255,255,255,0.7); }
   
-  /* City Nav (com as bandeiras/siglas destacadas) */
+  /* City Nav (Com as Bandeiras) */
   .city-nav { display: flex; background: var(--white); padding: 0 20px; border-bottom: 1px solid var(--gray-200); overflow-x: auto; scrollbar-width: none; }
   .city-nav::-webkit-scrollbar { display: none; }
-  .city-tab { display: flex; flex-direction: column; align-items: center; padding: 15px 25px; cursor: pointer; border-bottom: 4px solid transparent; transition: all 0.2s; min-width: 100px; }
+  .city-tab { display: flex; flex-direction: column; align-items: center; padding: 12px 20px; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; min-width: 90px; gap: 2px; }
   .city-tab.active { border-bottom-color: var(--navy); }
-  .ct-code { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
-  .ct-name { font-size: 13px; font-weight: 500; color: var(--gray-700); }
-  .city-tab.active .ct-code, .city-tab.active .ct-name { color: var(--navy); }
-  .ct-dates { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .ct-flag { font-size: 18px; margin-bottom: 2px; }
+  .ct-name { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+  .city-tab.active .ct-name { color: var(--navy); }
+  .ct-dates { font-size: 10px; color: var(--gray-400); }
   
-  /* Tab Bar */
-  .tab-bar { display: flex; gap: 10px; padding: 15px 30px; background: var(--white); border-bottom: 1px solid var(--gray-200); }
-  .tab-pill { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-700); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+  /* Tab Bar (Pílulas Restauradas) */
+  .tab-bar { display: flex; gap: 12px; padding: 15px 30px; background: var(--white); border-bottom: 1px solid var(--gray-200); }
+  .tab-pill { padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-700); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; white-space: nowrap; }
   .tab-pill.active { background: var(--navy); border-color: var(--navy); color: white; }
 
-  /* Content */
-  .content { padding: 20px 30px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
+  /* Content Container */
+  .content { padding: 25px 30px; flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
   
-  /* City Header Info Box */
-  .city-header-box { background: var(--navy); color: white; padding: 20px 25px; border-radius: var(--radius); margin-bottom: 20px; }
-  .city-header-box h3 { font-size: 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-  .city-header-box h3 span { color: var(--gold-light); }
-  .city-header-box p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); }
+  /* Blue Info Banner */
+  .info-banner { background: var(--navy); color: white; padding: 20px 25px; border-radius: var(--radius); margin-bottom: 35px; }
+  .info-banner h3 { font-size: 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .info-banner p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.9); }
   
-  /* Sections (Cards) */
-  .section-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-200); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
-  .section-title { font-size: 12px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+  /* Sections Config */
+  .section-container { margin-bottom: 35px; }
+  .section-title { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
   
-  /* Badges & Rows */
-  .badge { background: var(--navy); color: white; border-radius: 12px; padding: 4px 12px; font-size: 11px; font-weight: 700; white-space: nowrap; text-align: center; min-width: 55px; }
-  .row-item { display: flex; gap: 15px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
-  .row-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .row-text { font-size: 14px; line-height: 1.6; color: var(--gray-900); flex: 1; }
+  /* Airport Box (Borda dourada esquerda) */
+  .airport-box { border-left: 3px solid var(--gold); padding: 5px 0 5px 15px; font-size: 13px; line-height: 1.6; color: var(--gray-700); margin-left: 5px; }
+  
+  /* TIP Rows */
+  .tip-row { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 18px; }
+  .badge-tip { background: var(--navy); color: white; border-radius: 12px; padding: 4px 14px; font-size: 11px; font-weight: 700; line-height: 1.2; margin-top: 2px; }
+  .badge-day { background: var(--gray-700); color: white; border-radius: 12px; padding: 4px 14px; font-size: 11px; font-weight: 700; line-height: 1.2; margin-top: 2px; min-width: 55px; text-align: center; }
+  .tip-text { font-size: 13px; line-height: 1.6; color: var(--gray-700); flex: 1; }
   
   /* Inputs */
-  .day-input { flex: 1; border: none; background: transparent; font-size: 14px; color: var(--gray-900); line-height: 1.6; outline: none; resize: vertical; min-height: 60px; width: 100%; font-family: inherit; }
-  .notes-input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 15px; font-size: 14px; color: var(--gray-900); min-height: 120px; background: var(--gray-100); resize: vertical; outline: none; font-family: inherit; line-height: 1.6; }
+  .day-input { flex: 1; border: none; border-bottom: 1px solid var(--gray-100); background: transparent; font-size: 13px; color: var(--gray-700); line-height: 1.6; outline: none; resize: vertical; min-height: 50px; width: 100%; font-family: inherit; padding-bottom: 10px; }
+  .day-input:focus { border-bottom-color: var(--navy); }
+  .notes-input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 15px; font-size: 13px; color: var(--gray-700); min-height: 120px; background: var(--cream); resize: vertical; outline: none; font-family: inherit; line-height: 1.6; }
   
-  /* Bottom Maps Footer */
-  .bottom-maps-footer { background: var(--navy); color: white; text-align: center; padding: 15px; text-decoration: none; font-size: 14px; font-weight: 700; display: flex; justify-content: center; align-items: center; gap: 8px; cursor: pointer; margin-top: auto; transition: background 0.2s; }
-  .bottom-maps-footer:hover { background: var(--navy-light); }
-
-  /* Responsividade mobile básica */
+  /* Responsividade */
   @media (max-width: 768px) {
-    .app-header { flex-direction: column; align-items: flex-start; gap: 15px; padding: 15px 20px; }
-    .summary-strip { width: 100%; justify-content: space-between; }
-    .tab-bar { padding: 10px 20px; overflow-x: auto; }
-    .content { padding: 15px; }
-    .row-item { flex-direction: column; gap: 8px; }
+    .app-header { padding: 15px 20px; }
+    .tab-bar { padding: 12px 20px; overflow-x: auto; }
+    .content { padding: 20px; }
+    .tip-row { gap: 10px; }
   }
 </style>
 </head>
 <body>
 
 <div class="app-header">
-  <div class="header-left">
-    <h1>✈ Eurotrip 2026</h1>
-    <p>Cristiano & Liliane · Roteiroadois em Abril de 2026</p>
-  </div>
-  <div class="summary-strip">
-    <div class="sum-item"><div class="sum-num">4</div><div class="sum-lbl">Países</div></div>
-    <div class="sum-item"><div class="sum-num">4</div><div class="sum-lbl">Cidades</div></div>
-    <div class="sum-item"><div class="sum-num">18</div><div class="sum-lbl">Dias</div></div>
-    <div class="sum-item"><div class="sum-num">3</div><div class="sum-lbl">Trechos</div></div>
-  </div>
+  <h1>✈ Eurotrip 2026</h1>
+  <p>Cristiano & Liliane · Roteiroadois em Abril de 2026</p>
 </div>
 
 <div class="city-nav" id="cityNav"></div>
 
+<!-- Abas restauradas com visual idêntico ao anexo -->
 <div class="tab-bar" id="tabBar">
-  <div class="tab-pill active" onclick="setTab('roteiro',this)">📋 Roteiro Completo</div>
-  <div class="tab-pill" onclick="setTab('turistico',this)">🏛 Atrações</div>
+  <div class="tab-pill active" onclick="setTab('roteiro',this)">📄 Roteiro</div>
+  <div class="tab-pill" onclick="setTab('turistico',this)">🏛 Turístico</div>
   <div class="tab-pill" onclick="setTab('restaurantes',this)">🍽 Restaurantes</div>
+  <div class="tab-pill" onclick="setTab('apoio',this)">🏠 Apoio</div>
 </div>
 
 <div class="content" id="mainContent"></div>
 
-<a href="#" target="_blank" id="footerMapLink" class="bottom-maps-footer">
-  🗺 Abrir base da cidade no Google Maps
-</a>
-
 <script>
+// Base de dados com os textos limpos (removidos os "contentReference")
 const cities = [
   {
-    id:'porto', name:'Porto', code:'PT', flag:'🇵🇹', country:'Portugal', dates:'2 dias', address:'Rua do Loureiro 142, Porto',
+    id:'porto', name:'Porto', flag:'🇵🇹', country:'Portugal', dates:'2 dias', address:'Rua do Loureiro 142, Porto',
     lat:41.1496, lng:-8.6109, mapQ:'Rua do Loureiro 142, Porto, Porto 4000-326, Portugal',
     transport:'Roteiro concentrado no centro histórico e margem do Douro para fazer quase tudo a pé, reduzindo deslocamentos no primeiro dia e antes da saída para Lisboa.',
     airportTransfer:'Saindo do aeroporto, o trajeto mais prático costuma ser metrô até Trindade com conexão para São Bento/Campanhã conforme o horário, ou táxi/TVDE se quiserem mais conforto com bagagem.',
@@ -134,10 +118,10 @@ const cities = [
     restaurants:[
       {name:'Brasão', icon:'🥪', meta:'boa opção para provar francesinha'}
     ],
-    notesDefault:'Ajustaremos o roteiro conforme necessário.'
+    notesDefault:'Anotações gerais do roteiro...'
   },
   {
-    id:'lisboa', name:'Lisboa', code:'PT', flag:'🇵🇹', country:'Portugal', dates:'4 dias', address:'Hospedagem a definir',
+    id:'lisboa', name:'Lisboa', flag:'🇵🇹', country:'Portugal', dates:'4 dias', address:'Hospedagem a definir',
     lat:38.7223, lng:-9.1393, mapQ:'Lisboa Portugal',
     transport:'Roteiro por zonas para reduzir deslocamentos: Baixa/Chiado, Alfama/Castelo, Belém e um último bloco mais leve.',
     airportTransfer:'Assim que o endereço for definido, incluiremos a melhor rota de metrô/trem.',
@@ -162,7 +146,7 @@ const cities = [
     notesDefault:'Reservar com antecedência Jerónimos/Castelo se quiser evitar filas.'
   },
   {
-    id:'london', name:'Londres', code:'GB', flag:'🇬🇧', country:'Reino Unido', dates:'2 dias',
+    id:'london', name:'Londres', flag:'🇬🇧', country:'Reino Unido', dates:'2 dias',
     address:'36a Strutton Ground Floor 1 flat 1, SW1P 2HR',
     lat:51.4975, lng:-0.1324, mapQ:'36a Strutton Ground SW1P 2HR London',
     transport:'Base excelente em Westminster. Caminhada pelos ícones centrais de Londres e deslocamentos simples de metrô para Camden e Notting Hill.',
@@ -187,21 +171,24 @@ const cities = [
     notesDefault:'No Dia 1, quase todo o roteiro pode ser feito a pé até a London Eye.'
   },
   {
-    id:'amsterdam', name:'Amsterdã', code:'NL', flag:'🇳🇱', country:'Países Baixos', dates:'4 dias',
+    id:'amsterdam', name:'Amsterdã', flag:'🇳🇱', country:'Países Baixos', dates:'4 dias',
     address:'Jan Gijzenkade 156, Haarlem',
     lat:52.3967, lng:4.6263, mapQ:'Jan Gijzenkade 156 Haarlem Netherlands',
     transport:'Base em Haarlem com ótima logística para combinar chegada tranquila, Keukenhof + Bloemencorso e um dia clássico em Amsterdã.',
-    airportTransfer:'SCHIPHOL → Haarlem/Airbnb: ônibus em frente ao Schiphol Plaza, Uber ou táxi para chegar direto.',
+    airportTransfer:'SCHIPHOL → Haarlem/Airbnb: o aeroporto informa que os ônibus partem em frente ao Schiphol Plaza, e o ônibus pode ser uma boa opção para Haarlem; também vale usar Uber ou táxi para chegar mais direto ao endereço.',
     trainTips:[
-      'Schiphol → Haarlem: ônibus ou carro por app costumam ser mais simples à noite.',
-      'Haarlem Station → Keukenhof: use o KeukenhofBuzz 850.',
-      'Haarlem → Amsterdam Centraal: trem direto em cerca de 16 minutos.'
+      'Schiphol → Haarlem: ônibus ou carro por aplicativo/táxi costumam ser as opções mais simples na chegada noturna.',
+      'Haarlem Station → Keukenhof: use o KeukenhofBuzz 850; o trajeto leva cerca de 40 minutos e o combiticket deve ser comprado com antecedência.',
+      'No dia 18/04, espere mais movimento por causa do Bloemencorso Bollenstreek, que termina em Haarlem.',
+      'Haarlem → Amsterdam Centraal: trem direto em cerca de 16 minutos, ótima opção para o dia 19.',
+      'Em Amsterdã, faça o centro a pé e complemente com cruzeiro pelos canais.',
+      'Para a Casa de Anne Frank, reserve no site oficial com antecedência: os ingressos abrem toda terça às 10h CEST para visitas 6 semanas depois.'
     ],
     days:['Dia 1','Dia 2','Dia 3','Dia 4'],
     dayDefaults:[
       '19:00 chegada a Schiphol. 19:45 deslocamento para Haarlem e check-in. 21:15 Grote Markt para jantar.',
-      '08:30 saída para Haarlem Station. 09:00 embarque rumo ao Keukenhof. MANHÃ no Keukenhof. TARDE: campos de tulipas.',
-      '09:00 trem para Amsterdam Centraal. Praça Dam, Casa de Anne Frank, Cruzeiro, Rijksmuseum ou Van Gogh.',
+      '08:30 saída para Haarlem Station. 09:00 embarque rumo ao Keukenhof. MANHÃ no Keukenhof. TARDE: campos de tulipas. Dia muito especial e concorrido, então vale comprar ingresso com antecedência.',
+      '09:00 trem para Amsterdam Centraal. Praça Dam, Casa de Anne Frank, Cruzeiro, Rijksmuseum ou Van Gogh. O Rijksmuseum abre diariamente das 9h às 17h, e o Van Gogh Museum em abril costuma abrir diariamente das 9h às 18h, com sextas até 21h.',
       '07:30 café da manhã em Haarlem. 09:00 saída para Schiphol.'
     ],
     tourists:[
@@ -211,10 +198,10 @@ const cities = [
     restaurants:[
       {name:'Jordaan', icon:'🥘', meta:'excelente região para jantar em Amsterdã'}
     ],
-    notesDefault:'O dia 18/04 tende a ser o mais cheio por causa do Keukenhof e do Bloemencorso. Compre tudo com antecedência.'
+    notesDefault:'O dia 18/04 tende a ser o mais cheio por causa do Keukenhof e do Bloemencorso. Compre tudo com antecedência. Rijksmuseum e Van Gogh funcionam melhor como alternativas, não como combo apressado.'
   },
   {
-    id:'paris', name:'Paris', code:'FR', flag:'🇫🇷', country:'França', dates:'6 dias',
+    id:'paris', name:'Paris', flag:'🇫🇷', country:'França', dates:'6 dias',
     address:'13 Rue des Jeuneurs, Paris 75002',
     lat:48.8693, lng:2.3434, mapQ:'13 Rue des Jeuneurs 75002 Paris',
     transport:'Base no 2º arrondissement. Chegada leve, Paris monumental, Louvre, Disneyland Paris, Montmartre e Passagens Cobertas.',
@@ -242,7 +229,7 @@ const cities = [
     notesDefault:'O Louvre encaixa perfeitamente no dia 22/04. Para a Disneyland, saiam cedo.'
   },
   {
-    id:'porto-final', name:'Porto Final', code:'PT', flag:'🇵🇹', country:'Portugal', dates:'25–26 abr', address:'Aeroporto do Porto',
+    id:'porto-final', name:'Porto Final', flag:'🇵🇹', country:'Portugal', dates:'25–26 abr', address:'Aeroporto do Porto',
     lat:41.1496, lng:-8.6109, mapQ:'Porto Airport Portugal',
     transport:'Trecho totalmente operacional dentro do aeroporto. Melhor estratégia é permanecer no aeroporto e evitar qualquer deslocamento externo.',
     airportTransfer:'Não será necessário traslado.',
@@ -277,13 +264,13 @@ let activeCity = 0;
 let activeTab = 'roteiro';
 
 function mapsUrl(query, city){ return `https://www.google.com/maps/search/${encodeURIComponent(query + ' ' + city.name + ' ' + city.country)}`; }
-function cityMapsUrl(city){ return `https://www.google.com/maps/search/${encodeURIComponent(city.mapQ)}`; }
 
+// Exibe as Bandeiras no menu superior
 function renderNav(){
   const nav = document.getElementById('cityNav');
   nav.innerHTML = cities.map((c,i) => `
     <div class="city-tab ${i===activeCity?'active':''}" onclick="selectCity(${i})">
-      <span class="ct-code">${c.flag} ${c.code}</span>
+      <span class="ct-flag">${c.flag}</span>
       <span class="ct-name">${c.name}</span>
       <span class="ct-dates">${c.dates}</span>
     </div>
@@ -316,59 +303,66 @@ function renderContent() {
   const container = document.getElementById('mainContent');
   const city = cities[activeCity];
   
-  // Atualiza o link do rodapé
-  document.getElementById('footerMapLink').href = cityMapsUrl(city);
-  
   if (activeTab === 'roteiro') {
+    // Renderiza a tela exata como no seu print (Dashboard completo do Roteiro)
     let html = `
-      <div class="city-header-box">
-        <h3>📍 <span>${city.name}</span></h3>
+      <div class="info-banner">
+        <h3><span style="color: #f39c12;">📍</span> ${city.name}</h3>
         <p>${city.transport}</p>
       </div>
 
-      <div class="section-card">
-        <div class="section-title">✈ AEROPORTO ➝ HOSPEDAGEM</div>
-        <div class="row-item">
-          <div class="row-text">
-            <strong>${city.address}</strong><br><br>
-            ${city.airportTransfer}
-          </div>
+      <div class="section-container">
+        <div class="section-title">
+          <span style="font-size:14px;">🛫</span> AEROPORTO ➝ HOSPEDAGEM
+        </div>
+        <div class="airport-box">
+          ${city.airportTransfer}
         </div>
       </div>
 
-      <div class="section-card">
-        <div class="section-title">🚆 TREM / METRÔ MAIS ÚTEIS</div>
-        ${city.trainTips.map(tip => `
-          <div class="row-item">
-            <span class="badge">TIP</span>
-            <div class="row-text">${tip}</div>
-          </div>
-        `).join('')}
+      <div class="section-container">
+        <div class="section-title">
+          <span style="font-size:14px;">🚇</span> TREM / METRÔ MAIS ÚTEIS
+        </div>
+        <div>
+          ${city.trainTips.map(tip => `
+            <div class="tip-row">
+              <div class="badge-tip">TIP</div>
+              <div class="tip-text">${tip}</div>
+            </div>
+          `).join('')}
+        </div>
       </div>
 
-      <div class="section-card">
-        <div class="section-title">📋 PLANEJAMENTO DIÁRIO</div>
-        ${city.days.map((dayLabel, idx) => `
-          <div class="row-item">
-            <span class="badge">${dayLabel}</span>
-            <textarea class="day-input" onchange="saveDayPlan('${city.id}', ${idx}, this.value)">${dayPlans[city.id][idx] || ''}</textarea>
-          </div>
-        `).join('')}
+      <div class="section-container">
+        <div class="section-title">
+          <span style="font-size:14px;">📋</span> PLANEJAMENTO DIÁRIO
+        </div>
+        <div>
+          ${city.days.map((dayLabel, idx) => `
+            <div class="tip-row">
+              <div class="badge-day">${dayLabel}</div>
+              <textarea class="day-input" onchange="saveDayPlan('${city.id}', ${idx}, this.value)">${dayPlans[city.id][idx] || ''}</textarea>
+            </div>
+          `).join('')}
+        </div>
       </div>
 
-      <div class="section-card">
-        <div class="section-title">📝 NOTAS DA CIDADE</div>
+      <div class="section-container">
+        <div class="section-title">
+          <span style="font-size:14px;">📝</span> NOTAS DA CIDADE
+        </div>
         <textarea class="notes-input" onchange="saveNote('${city.id}', this.value)">${notes[city.id] || ''}</textarea>
       </div>
     `;
     container.innerHTML = html;
   } else if (activeTab === 'turistico') {
-    let html = `<div class="section-card"><div class="section-title">🏛 Atrações e Passeios</div>`;
+    let html = `<div class="section-container"><div class="section-title">🏛 ATRAÇÕES E PASSEIOS</div>`;
     city.tourists.forEach(t => {
       html += `
-        <div class="row-item">
-          <span class="badge" style="font-size: 16px; padding: 6px 10px;">${t.icon}</span>
-          <div class="row-text">
+        <div class="tip-row" style="align-items: center;">
+          <span class="badge-tip" style="background:var(--cream); border:1px solid var(--gray-200); font-size: 16px; padding: 6px 10px;">${t.icon}</span>
+          <div class="tip-text">
             <strong>${t.name}</strong><br>
             <span style="color: var(--gray-400); font-size: 12px;">${t.meta}</span><br>
             <a href="${mapsUrl(t.name, city)}" target="_blank" style="color: var(--navy); font-size: 12px; font-weight: bold; text-decoration: none;">Ver no Google Maps ↗</a>
@@ -379,12 +373,12 @@ function renderContent() {
     html += `</div>`;
     container.innerHTML = html;
   } else if (activeTab === 'restaurantes') {
-    let html = `<div class="section-card"><div class="section-title">🍽 Restaurantes e Cafés</div>`;
+    let html = `<div class="section-container"><div class="section-title">🍽 RESTAURANTES E CAFÉS</div>`;
     city.restaurants.forEach(r => {
       html += `
-        <div class="row-item">
-          <span class="badge" style="font-size: 16px; padding: 6px 10px;">${r.icon}</span>
-          <div class="row-text">
+        <div class="tip-row" style="align-items: center;">
+          <span class="badge-tip" style="background:var(--cream); border:1px solid var(--gray-200); font-size: 16px; padding: 6px 10px;">${r.icon}</span>
+          <div class="tip-text">
             <strong>${r.name}</strong><br>
             <span style="color: var(--gray-400); font-size: 12px;">${r.meta}</span><br>
             <a href="${mapsUrl(r.name, city)}" target="_blank" style="color: var(--navy); font-size: 12px; font-weight: bold; text-decoration: none;">Ver no Google Maps ↗</a>
@@ -393,6 +387,19 @@ function renderContent() {
       `;
     });
     html += `</div>`;
+    container.innerHTML = html;
+  } else if (activeTab === 'apoio') {
+    // Aba apoio simplificada
+    let html = `
+      <div class="section-container">
+        <div class="section-title">
+          <span style="font-size:14px;">🏠</span> INFORMAÇÕES DO ENDEREÇO
+        </div>
+        <div class="airport-box">
+          <strong>Endereço:</strong> ${city.address}
+        </div>
+      </div>
+    `;
     container.innerHTML = html;
   }
 }
@@ -404,11 +411,7 @@ renderContent();
 // PWA: Registro do Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-      console.log('Service Worker Registrado com sucesso!', reg.scope);
-    }).catch(err => {
-      console.log('Falha ao registrar Service Worker:', err);
-    });
+    navigator.serviceWorker.register('/sw.js');
   });
 }
 </script>

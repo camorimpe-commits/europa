@@ -35,7 +35,7 @@
   .city-tab.active .ct-name { color: var(--navy); }
   .ct-dates { font-size: 10px; color: var(--gray-400); }
   
-  /* Tab Bar (Pílulas Restauradas) */
+  /* Tab Bar */
   .tab-bar { display: flex; gap: 12px; padding: 15px 30px; background: var(--white); border-bottom: 1px solid var(--gray-200); }
   .tab-pill { padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-700); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; white-space: nowrap; }
   .tab-pill.active { background: var(--navy); border-color: var(--navy); color: white; }
@@ -66,12 +66,17 @@
   .day-input:focus { border-bottom-color: var(--navy); }
   .notes-input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 15px; font-size: 13px; color: var(--gray-700); min-height: 120px; background: var(--cream); resize: vertical; outline: none; font-family: inherit; line-height: 1.6; }
   
+  /* Bottom Maps Footer */
+  .bottom-maps-footer { background: var(--navy); color: white; padding: 15px 30px; text-decoration: none; font-size: 13px; font-weight: 700; display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-top: auto; transition: background 0.2s; }
+  .bottom-maps-footer:hover { background: var(--navy-light); }
+
   /* Responsividade */
   @media (max-width: 768px) {
     .app-header { padding: 15px 20px; }
     .tab-bar { padding: 12px 20px; overflow-x: auto; }
     .content { padding: 20px; }
     .tip-row { gap: 10px; }
+    .bottom-maps-footer { justify-content: center; padding: 15px; }
   }
 </style>
 </head>
@@ -84,7 +89,6 @@
 
 <div class="city-nav" id="cityNav"></div>
 
-<!-- Abas restauradas com visual idêntico ao anexo -->
 <div class="tab-bar" id="tabBar">
   <div class="tab-pill active" onclick="setTab('roteiro',this)">📄 Roteiro</div>
   <div class="tab-pill" onclick="setTab('turistico',this)">🏛 Turístico</div>
@@ -94,8 +98,13 @@
 
 <div class="content" id="mainContent"></div>
 
+<!-- Botão base do Google Maps no rodapé -->
+<a href="#" target="_blank" id="footerMapLink" class="bottom-maps-footer">
+  🗺 Abrir base da cidade no Google Maps
+</a>
+
 <script>
-// Base de dados com os textos limpos (removidos os "contentReference")
+// Base de dados com as Rotas do Maps (mapRoutes) restauradas e os erros ":contentReference" removidos.
 const cities = [
   {
     id:'porto', name:'Porto', flag:'🇵🇹', country:'Portugal', dates:'2 dias', address:'Rua do Loureiro 142, Porto',
@@ -105,6 +114,10 @@ const cities = [
     trainTips:[
       'O centro histórico, Ribeira, Sé e Ponte Dom Luís I funcionam muito bem a pé.',
       'Se quiser subir ou descer com menos esforço entre as áreas altas e baixas, vale combinar caminhada com metrô/funicular/bonde conforme o horário.'
+    ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Centro histórico + Ribeira', desc:'Sé do Porto, Estação São Bento, Rua das Flores, Ribeira e ponte ao entardecer.', query:'Sé do Porto to Estação São Bento to Rua das Flores Porto to Ribeira do Porto walking'},
+      {title:'Mapa dia 2 — Clérigos + despedida da cidade', desc:'Torre dos Clérigos, Livraria Lello, Avenida dos Aliados e saída para Lisboa.', query:'Torre dos Clérigos to Livraria Lello to Avenida dos Aliados Porto walking'}
     ],
     days:['Dia 1','Dia 2'],
     dayDefaults:[
@@ -128,6 +141,11 @@ const cities = [
     trainTips:[
       'Baixa/Chiado e Alfama rendem melhor combinando caminhada + bonde/metro.',
       'Para Belém, o trem/tram ao longo do Tejo costuma ser a forma mais prática.'
+    ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Baixa + Chiado', desc:'Praça do Comércio, Rua Augusta, Elevador de Santa Justa e miradouro.', query:'Praça do Comércio Lisboa to Elevador de Santa Justa to Chiado Lisboa walking'},
+      {title:'Mapa dia 2 — Alfama + Castelo', desc:'Sé, Alfama, Castelo de São Jorge e miradouros.', query:'Sé de Lisboa to Castelo de São Jorge to Miradouro de Santa Luzia walking'},
+      {title:'Mapa dia 3 — Belém', desc:'Jerónimos, Padrão dos Descobrimentos e Torre de Belém.', query:'Mosteiro dos Jerónimos to Padrão dos Descobrimentos to Torre de Belém walking'}
     ],
     days:['Dia 1','Dia 2','Dia 3','Dia 4'],
     dayDefaults:[
@@ -155,6 +173,10 @@ const cities = [
       'Airbnb → The King’s Gallery / Buckingham Palace / Big Ben: dá para fazer boa parte a pé.',
       'Westminster → King’s Cross (Plataforma 9 ¾): Tube é a forma mais prática.',
       'King’s Cross → Camden Town: são apenas 2 paradas de metrô pela Northern Line.'
+    ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Londres clássica a pé + deslocamento final', desc:'Airbnb, The King’s Gallery, Buckingham Palace, Big Ben & Parlamento, London Eye, Tower Bridge, Piccadilly Circus & Chinatown e The Albert Pub.', query:'36a Strutton Ground London to The King’s Gallery London to Buckingham Palace to Big Ben London to London Eye to Tower Bridge to Piccadilly Circus to Chinatown London to The Albert Pub London'},
+      {title:'Mapa dia 2 — Magia, Mercados e Cores', desc:'Airbnb, Plataforma 9 3/4 em King’s Cross, Camden Town e Notting Hill.', query:'36a Strutton Ground London to Platform 9 3/4 King’s Cross to Camden Town London to Notting Hill London'}
     ],
     days:['Dia 1','Dia 2'],
     dayDefaults:[
@@ -184,6 +206,12 @@ const cities = [
       'Em Amsterdã, faça o centro a pé e complemente com cruzeiro pelos canais.',
       'Para a Casa de Anne Frank, reserve no site oficial com antecedência: os ingressos abrem toda terça às 10h CEST para visitas 6 semanas depois.'
     ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Chegada e noite leve em Haarlem', desc:'Schiphol, Airbnb e Grote Markt em Haarlem.', query:'Schiphol Airport to Jan Gijzenkade 156 Haarlem to Grote Markt Haarlem'},
+      {title:'Mapa dia 2 — Keukenhof + campos + retorno para Haarlem', desc:'Haarlem Station, Keukenhof e região dos campos de tulipas.', query:'Jan Gijzenkade 156 Haarlem to Haarlem Station to Keukenhof Lisse'},
+      {title:'Mapa dia 3 — Amsterdã clássica', desc:'Amsterdam Centraal, Dam Square, Anne Frank House, canais, Jordaan e Museumplein.', query:'Haarlem Station to Amsterdam Centraal to Dam Square Amsterdam to Anne Frank House to Jordaan Amsterdam to Rijksmuseum Amsterdam'},
+      {title:'Mapa dia 4 — Despedida', desc:'Airbnb, Molen de Adriaan e Schiphol.', query:'Jan Gijzenkade 156 Haarlem to Molen de Adriaan Haarlem to Schiphol Airport'}
+    ],
     days:['Dia 1','Dia 2','Dia 3','Dia 4'],
     dayDefaults:[
       '19:00 chegada a Schiphol. 19:45 deslocamento para Haarlem e check-in. 21:15 Grote Markt para jantar.',
@@ -210,6 +238,14 @@ const cities = [
       'Rue des Jeuneurs → Palais Royal / Louvre: ótimo trecho para caminhada.',
       'Airbnb → Disneyland Paris: ir até Châtelet–Les Halles e pegar o RER A.'
     ],
+    mapRoutes:[
+      {title:'Mapa dia 1 — Chegada e primeira noite', desc:'Hospedagem, Rue Montorgueil, Palais Royal e Hôtel de Ville.', query:'13 Rue des Jeuneurs 75002 Paris to Rue Montorgueil Paris to Palais Royal Paris to Hotel de Ville Paris'},
+      {title:'Mapa dia 2 — Paris monumental', desc:'Île de la Cité, Notre-Dame, Pont Neuf, Trocadéro, Torre Eiffel e Ponte de l Alma.', query:'13 Rue des Jeuneurs 75002 Paris to Notre Dame Paris to Pont Neuf Paris to Trocadero Paris to Eiffel Tower Paris to Pont de l Alma Paris'},
+      {title:'Mapa dia 3 — Louvre + Tuileries + Champs-Élysées', desc:'Louvre, Jardin des Tuileries, Place de la Concorde, Champs-Élysées e Arco do Triunfo.', query:'13 Rue des Jeuneurs 75002 Paris to Louvre Museum to Jardin des Tuileries to Place de la Concorde to Champs-Elysees Paris to Arc de Triomphe'},
+      {title:'Mapa dia 4 — Disneyland Paris', desc:'Base no 2º arrondissement até Marne-la-Vallée/Chessy.', query:'13 Rue des Jeuneurs 75002 Paris to Chatelet-Les-Halles Paris to Disneyland Paris transit'},
+      {title:'Mapa dia 5 — Montmartre + Opéra + bairro', desc:'Sacré-Cœur, Montmartre, Opéra Garnier, Galeries Lafayette e Passagens Cobertas.', query:'13 Rue des Jeuneurs 75002 Paris to Sacre-Coeur Paris to Montmartre Paris to Opera Garnier Paris to Galeries Lafayette Haussmann to Passage des Panoramas to Passage Jouffroy'},
+      {title:'Mapa dia 6 — Despedida', desc:'Último café da manhã e opção entre Centre Pompidou ou Musée d Orsay.', query:'13 Rue des Jeuneurs 75002 Paris to Centre Pompidou Paris to Musee d Orsay Paris'}
+    ],
     days:['Dia 1','Dia 2','Dia 3','Dia 4','Dia 5','Dia 6'],
     dayDefaults:[
       '16:00 desembarque. 18:30 check-in. NOITE: Rue Montorgueil e Palais Royal.',
@@ -235,6 +271,9 @@ const cities = [
     airportTransfer:'Não será necessário traslado.',
     trainTips:[
       'Não há necessidade de trem, metrô ou táxi neste trecho final.'
+    ],
+    mapRoutes:[
+      {title:'Mapa — Aeroporto do Porto', desc:'Visualização do aeroporto.', query:'Porto Airport Portugal'}
     ],
     days:['Dia 25','Dia 26'],
     dayDefaults:[
@@ -264,6 +303,7 @@ let activeCity = 0;
 let activeTab = 'roteiro';
 
 function mapsUrl(query, city){ return `https://www.google.com/maps/search/${encodeURIComponent(query + ' ' + city.name + ' ' + city.country)}`; }
+function cityMapsUrl(city){ return `https://www.google.com/maps/search/${encodeURIComponent(city.mapQ)}`; }
 
 // Exibe as Bandeiras no menu superior
 function renderNav(){
@@ -302,6 +342,12 @@ function saveNote(cityId, val) {
 function renderContent() {
   const container = document.getElementById('mainContent');
   const city = cities[activeCity];
+  
+  // Atualiza o Link Principal do Rodapé para a cidade selecionada
+  const footerLink = document.getElementById('footerMapLink');
+  if (footerLink) {
+    footerLink.href = cityMapsUrl(city);
+  }
   
   if (activeTab === 'roteiro') {
     // Renderiza a tela exata como no seu print (Dashboard completo do Roteiro)
@@ -347,7 +393,32 @@ function renderContent() {
           `).join('')}
         </div>
       </div>
+    `;
 
+    // Restaura as rotas do Google Maps diárias dentro do Roteiro
+    if (city.mapRoutes && city.mapRoutes.length > 0) {
+      html += `
+        <div class="section-container">
+          <div class="section-title">
+            <span style="font-size:14px;">🗺️</span> ROTAS RECOMENDADAS NO MAPS
+          </div>
+          <div>
+            ${city.mapRoutes.map(r => `
+              <div class="tip-row">
+                <div class="badge-day" style="background:var(--navy);">MAPA</div>
+                <div class="tip-text">
+                  <strong>${r.title}</strong><br>
+                  <span style="font-size: 12px; color: var(--gray-400);">${r.desc}</span><br>
+                  <a href="${mapsUrl(r.query, city)}" target="_blank" style="color: var(--navy); font-size: 12px; font-weight: bold; text-decoration: none; margin-top: 4px; display: inline-block;">Abrir Rota no Maps ↗</a>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    html += `
       <div class="section-container">
         <div class="section-title">
           <span style="font-size:14px;">📝</span> NOTAS DA CIDADE
@@ -355,7 +426,9 @@ function renderContent() {
         <textarea class="notes-input" onchange="saveNote('${city.id}', this.value)">${notes[city.id] || ''}</textarea>
       </div>
     `;
+    
     container.innerHTML = html;
+
   } else if (activeTab === 'turistico') {
     let html = `<div class="section-container"><div class="section-title">🏛 ATRAÇÕES E PASSEIOS</div>`;
     city.tourists.forEach(t => {
@@ -389,7 +462,6 @@ function renderContent() {
     html += `</div>`;
     container.innerHTML = html;
   } else if (activeTab === 'apoio') {
-    // Aba apoio simplificada
     let html = `
       <div class="section-container">
         <div class="section-title">
